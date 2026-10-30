@@ -16,7 +16,7 @@
 <table>
   <tr>
     <td align="center" width="25%"><img src="docs/screenshots/user-01-home.png" width="190"><br><sub>首页 · AI 问答 / 办卡 / 游乐消费入口</sub></td>
-    <td align="center" width="25%"><img src="docs/screenshots/user-02-ai-chat.png" width="190"><br><sub>AI 问答 · 按孩子画像与余币算出行攻略</sub></td>
+    <td align="center" width="25%"><img src="docs/screenshots/user-02-ai-chat.png" width="190"><br><sub>AI 问答 · 问「怎么办卡充值」直接给档位与一键办理</sub></td>
     <td align="center" width="25%"><img src="docs/screenshots/user-03-profile.png" width="190"><br><sub>我的 · 余币 / 游园码 / 游玩次数排行</sub></td>
     <td align="center" width="25%"><img src="docs/screenshots/user-04-card.png" width="190"><br><sub>办卡充值 · 会员码与充值档位</sub></td>
   </tr>
@@ -31,7 +31,7 @@
   </tr>
   <tr>
     <td align="center" width="50%"><img src="docs/screenshots/admin-03-analytics.png" width="430"><br><sub>问答分析 · 满意度与意图占比</sub></td>
-    <td align="center" width="50%"><img src="docs/screenshots/admin-04-cards.png" width="430"><br><sub>卡产品管理 · 充值档位与上下架</sub></td>
+    <td align="center" width="50%"><img src="docs/screenshots/admin-04-orders.png" width="430"><br><sub>办卡账单（销售账单） · 充值/退卡流水与用户余币</sub></td>
   </tr>
   <tr>
     <td align="center" width="50%"><img src="docs/screenshots/admin-05-lost-found.png" width="430"><br><sub>失物招领 · 照片 AI 识别后入库</sub></td>
@@ -59,7 +59,7 @@
 | **我的收藏** | 收藏附图会落盘到服务器（`/static/favorites/`），收藏弹窗竖向卡片排版：问题+时间 / 缩略图（可点开放大左右滑动）/ Markdown 答案（可展开全文）/ 复制·继续追问·取消收藏 |
 | **流式 + 可打断** | SSE 流式打字，生成中可「停止」；断网自动降级为一次性接口 |
 | **细节交互** | 可点击来源锚点、⚡缓存秒回/⏱耗时角标、🔊语音朗读、📍地图/POI/天气卡、🧸失物认领与报失；三端（问答页/充值页/我的页）头像同源同步 |
-| **失物照片 AI 识别** | 小程序「报失」与商家 PC「失物登记」都支持上传照片：后端调模型的**视觉能力**（`deepseek-v4-flash-vision-exp`）预识别物品（建议名称 / 类别 / 颜色 / 品牌 / 特征 / 可见文字），**自动填名**、免手打；识别特征随失物落库（`services/vision_service.py`，按图片 md5 缓存、失败优雅降级不阻断提交），列表行上以标签展示 |
+| **失物照片 AI 识别** | 小程序「报失」与商家 PC「失物登记」都支持上传照片：后端调模型的**视觉能力**（`deepseek-flash`，原生支持图片输入）预识别物品（建议名称 / 类别 / 颜色 / 品牌 / 特征 / 可见文字），**自动填名**、免手打；识别特征随失物落库（`services/vision_service.py`，按图片 md5 缓存、失败优雅降级不阻断提交），列表行上以标签展示 |
 | **运营闭环** | 问答日志（Redis 热 + DB 持久）、意图/TOP 问题/趋势/满意度/响应耗时 P50-P95 看板、卡产品与账单、退卡退款、余额调账 |
 | **经营小助手（一句话干所有事）** | 商家 PC 右下角弹窗，管理员说一句话 → 模型直接调工具把事办完：**查询类回数字卡 + ECharts 图表 + 完整文字报告，写操作回动作流水**（都不是聊天式回答）。`tools/admin_tools.py` 把商家端 **36 个能力**全部工具化（看板/营收/问答记录/卡产品/账单持卡/消费单/失物/公告热点/知识库/用户配置），风险三档：只读 17 直接执行、常规写 11 直接执行、**高危 8（退款/调币/删除/改 Agent 配置）默认弹确认卡**。执行模型 `glm-5.3-flash`，与用户侧链路完全隔离 |
 
@@ -104,7 +104,7 @@
 | 类别 | 技术 |
 |---|---|
 | 后端 | Python 3.12 · FastAPI · Uvicorn · pydantic |
-| LLM | DeepSeek（OpenAI 兼容接口，文本模型 `LLM_TEXT_MODEL=deepseek-v4-pro-202606`，视觉模型 `LLM_VISION_MODEL=deepseek-v4-flash-vision-exp`），原生 function-calling |
+| LLM | DeepSeek（OpenAI 兼容接口，文本模型 `LLM_TEXT_MODEL=deepseek-flash`，视觉复用同一模型——原生支持图片输入），原生 function-calling |
 | Embedding / Rerank | BGE-M3（本地 CPU，1024 维）· bge-reranker-v2-m3 |
 | 向量库 / 倒排 | Milvus 2.4（IVF_FLAT/IP）· rank_bm25 + jieba（pickle 本地持久化） |
 | 缓存 / 会话 | Redis（问答/检索缓存、频控、统计、配额计数） |
@@ -131,7 +131,7 @@
 | `LLM_API_KEY` | DeepSeek API Key（必须） | `sk-...` |
 | `LLM_ENDPOINT` | OpenAI 兼容地址 | `https://api.deepseek.com/v1` |
 | `LLM_TEXT_MODEL` | 文本模型（RAG 生成/改写/校验/工具调用/意图路由） | `deepseek-v4-pro-202606` |
-| `LLM_VISION_MODEL` | 视觉模型（上传图片问答） | `deepseek-v4-flash-vision-exp` |
+| `LLM_VISION_MODEL` | 视觉模型（上传图片问答）；不设则回落到 `LLM_MODEL` | `deepseek-flash` |
 | `ROUTER_TIMEOUT` | 意图路由 L2 分类超时秒数；**换文本模型必须复核**（见 FAQ） | `2.5` |
 | `AMAP_WEB_SERVICE_KEY` | 高德 Web 服务 Key（地图 Agent 用） | `...` |
 | `DB_DRIVER` | `mysql` / `sqlite` | `mysql` |
