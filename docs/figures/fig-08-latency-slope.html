@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>性能优化前后对比</title>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&family=Noto+Serif:ital@0;1&family=Noto+Sans+SC:wght@400;500;600&family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --color-paper:   #faf6ee;
+      --color-paper-2: #f1ebdd;
+      --color-ink:     #2b2a24;
+      --color-muted:   #5c5748;
+      --color-soft:    #8a8371;
+      --color-accent:  #d98e00;
+      --font-sans:     'Geist', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      --font-serif:    'Instrument Serif', 'Noto Serif SC', 'Noto Serif', serif;
+      --font-mono:     'Geist Mono', ui-monospace, monospace;
+    }
+    body {
+      font-family: var(--font-sans); background: var(--color-paper); color: var(--color-ink);
+      min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 3rem 2rem;
+    }
+    .frame { max-width: 1200px; width: 100%; }
+    .eyebrow { font-family: var(--font-mono); font-size: 0.66rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-muted); margin-bottom: 0.5rem; }
+    h1 { font-family: var(--font-serif); font-size: clamp(1.5rem, 2.4vw + 0.75rem, 2rem); font-weight: 400; letter-spacing: -0.02em; line-height: 1.15; color: var(--color-ink); margin-bottom: 1.5rem; }
+    svg { width: 100%; min-width: 900px; display: block; }
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <p class="eyebrow">Slopegraph · 技术方案书 4.3.4</p>
+    <h1>性能优化前后：四个场景的耗时对比（秒）</h1>
+
+    <svg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="fig08-slope-title fig08-slope-desc">
+      <title id="fig08-slope-title">性能优化前后耗时斜率图</title>
+      <desc id="fig08-slope-desc">四个问答场景在优化前与优化后的平均耗时对比：常规问答从 34.5 秒降到 6.4 秒，园区位置类从 18.3 秒降到 0.17 秒。</desc>
+
+      <rect width="100%" height="100%" fill="#faf6ee"/>
+
+      <!-- 两条竖轴 -->
+      <line x1="320" y1="40" x2="320" y2="420" stroke="rgba(43,42,36,0.25)" stroke-width="1"/>
+      <line x1="680" y1="40" x2="680" y2="420" stroke="rgba(43,42,36,0.25)" stroke-width="1"/>
+
+      <!-- 轴单位说明（旋转） -->
+      <text x="24" y="230" fill="#5c5748" font-size="12" text-anchor="middle" transform="rotate(-90 24 230)" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">耗时（秒，区间取中点）</text>
+
+      <!-- ===== 系列（两轴同尺度 0–45s） ===== -->
+      <!-- 业务 Agent：28.5 → 9.05（非焦点 0.74） -->
+      <line data-series="业务 Agent" data-from="28.5" data-to="9.05" x1="320" y1="179.3" x2="680" y2="343.6" stroke="rgba(43,42,36,0.74)" stroke-width="1.2"/>
+      <circle cx="320" cy="179.3" r="3" fill="rgba(43,42,36,0.74)"/><circle cx="680" cy="343.6" r="3" fill="rgba(43,42,36,0.74)"/>
+      <text data-series="业务 Agent" data-end="from" data-role="name" x="272" y="183.3" fill="#2b2a24" font-size="12" font-weight="500" text-anchor="end" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">业务 Agent</text>
+      <text data-series="业务 Agent" data-end="from" x="304" y="183.3" fill="#5c5748" font-size="9" text-anchor="end" font-family="'Geist Mono',monospace">28.5</text>
+      <text data-series="业务 Agent" data-end="to" x="696" y="347.6" fill="#5c5748" font-size="9" font-family="'Geist Mono',monospace">9.05</text>
+      <text data-series="业务 Agent" data-end="to" data-role="name" x="728" y="347.6" fill="#2b2a24" font-size="12" font-weight="500" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">业务 Agent</text>
+
+      <!-- 园区位置类：18.3 → 0.17（非焦点 0.68） -->
+      <line data-series="园区位置类" data-from="18.3" data-to="0.17" x1="320" y1="265.5" x2="680" y2="418.6" stroke="rgba(43,42,36,0.68)" stroke-width="1.2"/>
+      <circle cx="320" cy="265.5" r="3" fill="rgba(43,42,36,0.68)"/><circle cx="680" cy="418.6" r="3" fill="rgba(43,42,36,0.68)"/>
+      <text data-series="园区位置类" data-end="from" data-role="name" x="272" y="269.5" fill="#2b2a24" font-size="12" font-weight="500" text-anchor="end" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">园区位置类</text>
+      <text data-series="园区位置类" data-end="from" x="304" y="269.5" fill="#5c5748" font-size="9" text-anchor="end" font-family="'Geist Mono',monospace">18.3</text>
+      <text data-series="园区位置类" data-end="to" x="696" y="422.6" fill="#5c5748" font-size="9" font-family="'Geist Mono',monospace">0.17</text>
+      <text data-series="园区位置类" data-end="to" data-role="name" x="728" y="422.6" fill="#2b2a24" font-size="12" font-weight="500" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">园区位置类</text>
+
+      <!-- 首字延迟：15.5 → 4.1（非焦点 0.62） -->
+      <line data-series="首字延迟" data-from="15.5" data-to="4.1" x1="320" y1="289.1" x2="680" y2="385.4" stroke="rgba(43,42,36,0.62)" stroke-width="1.2"/>
+      <circle cx="320" cy="289.1" r="3" fill="rgba(43,42,36,0.62)"/><circle cx="680" cy="385.4" r="3" fill="rgba(43,42,36,0.62)"/>
+      <text data-series="首字延迟" data-end="from" data-role="name" x="272" y="293.1" fill="#2b2a24" font-size="12" font-weight="500" text-anchor="end" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">首字延迟</text>
+      <text data-series="首字延迟" data-end="from" x="304" y="293.1" fill="#5c5748" font-size="9" text-anchor="end" font-family="'Geist Mono',monospace">15.5</text>
+      <text data-series="首字延迟" data-end="to" x="696" y="389.4" fill="#5c5748" font-size="9" font-family="'Geist Mono',monospace">4.1</text>
+      <text data-series="首字延迟" data-end="to" data-role="name" x="728" y="389.4" fill="#2b2a24" font-size="12" font-weight="500" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">首字延迟</text>
+
+      <!-- 常规 RAG 问答：34.5 → 6.4（焦点 accent 2.4） -->
+      <line data-series="常规 RAG 问答" data-from="34.5" data-to="6.4" x1="320" y1="128.7" x2="680" y2="366.0" stroke="#d98e00" stroke-width="2.4"/>
+      <circle cx="320" cy="128.7" r="4" fill="#d98e00"/><circle cx="680" cy="366.0" r="4" fill="#d98e00"/>
+      <text data-series="常规 RAG 问答" data-end="from" data-role="name" x="272" y="132.7" fill="#2b2a24" font-size="12" font-weight="600" text-anchor="end" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">常规 RAG 问答</text>
+      <text data-series="常规 RAG 问答" data-end="from" x="304" y="132.7" fill="#5c5748" font-size="9" text-anchor="end" font-family="'Geist Mono',monospace">34.5</text>
+      <text data-series="常规 RAG 问答" data-end="to" x="696" y="370.0" fill="#5c5748" font-size="9" font-family="'Geist Mono',monospace">6.4</text>
+      <text data-series="常规 RAG 问答" data-end="to" data-role="name" x="728" y="370.0" fill="#2b2a24" font-size="12" font-weight="600" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">常规 RAG 问答</text>
+
+      <!-- 状态标题 -->
+      <text data-axis="from" data-state="优化前" x="320" y="444" fill="#5c5748" font-size="12" font-weight="500" text-anchor="middle" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">优化前</text>
+      <text data-axis="to" data-state="优化后" x="680" y="444" fill="#5c5748" font-size="12" font-weight="500" text-anchor="middle" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">优化后</text>
+
+      <!-- Legend -->
+      <line x1="80" y1="462" x2="960" y2="462" stroke="rgba(43,42,36,0.10)" stroke-width="0.8"/>
+      <text x="80" y="478" fill="#5c5748" font-size="8" font-family="'Geist Mono',monospace" letter-spacing="0.14em">LEGEND</text>
+      <line x1="80" y1="492" x2="104" y2="492" stroke="#d98e00" stroke-width="2.4"/><circle cx="92" cy="492" r="4" fill="#d98e00"/>
+      <text x="112" y="496" fill="#5c5748" font-size="12" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">常规 RAG 问答（焦点）</text>
+      <line x1="316" y1="492" x2="340" y2="492" stroke="rgba(43,42,36,0.62)" stroke-width="1.2"/>
+      <text x="348" y="496" fill="#5c5748" font-size="12" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">其余场景 · 最深色调 = 优化前最慢</text>
+      <text x="960" y="496" fill="#8a8371" font-size="9" text-anchor="end" font-family="'Geist Mono',monospace">scale 0-45 s both axes · cache hit 2.3 to 0.13 omitted (overlap)</text>
+    </svg>
+  </div>
+</body>
+</html>

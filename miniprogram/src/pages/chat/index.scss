@@ -1,0 +1,1514 @@
+/* AI 问答页样式（移植 HomePage 视觉） */
+.chat-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: 24px 24px 0;
+  box-sizing: border-box;
+  background: linear-gradient(180deg, #fff3d6 0%, #fff7e0 40%, #fffdf5 100%);
+}
+
+/* 头部 */
+.header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 24px;
+  margin-bottom: 16px;
+  border: 2px solid #ffd9a8;
+}
+
+.header-avatar {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #ffe066, #ff9a3d);
+  border-radius: 50%;
+}
+
+.header-emoji {
+  font-size: 48px;
+}
+
+.header-balloon {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  font-size: 24px;
+}
+
+.header-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.header-title {
+  font-size: 34px;
+  font-weight: bold;
+  color: #ff8c42;
+}
+
+.header-sub {
+  font-size: 22px;
+  color: #666;
+}
+
+.header-deco {
+  font-size: 24px;
+}
+
+/* 对话区 */
+.chat-box {
+  flex: 1;
+  min-height: 0;
+  background: rgba(255, 255, 255, 0.75);
+  border-radius: 24px;
+  padding: 24px;
+  box-sizing: border-box;
+  margin-bottom: 16px;
+}
+
+.chat-bottom-pad {
+  height: 20px;
+}
+
+.row-user {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.bubble-user {
+  max-width: 76%;
+  padding: 20px 24px;
+  background: linear-gradient(135deg, #ffb14d, #ff8c42);
+  border-radius: 24px 8px 24px 24px;
+}
+
+.bubble-user-text {
+  font-size: 26px;
+  color: #fff;
+  word-break: break-all;
+}
+
+.avatar-user {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #b0b8c4, #6b7480);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  color: #fff;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+/* 用户头像（与「我的」页同源：上传后三端同步） */
+.avatar-user-img {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+}
+
+.avatar-user-emoji { font-size: 28px; color: #fff; }
+
+.row-ai {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.avatar-ai {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ffe066, #ff9a3d);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  flex-shrink: 0;
+}
+
+.bubble-ai {
+  flex: 1;
+  max-width: 80%;
+  padding: 20px 24px;
+  background: #fff;
+  border-radius: 8px 24px 24px 24px;
+  border: 1px solid #ffe9cf;
+  box-shadow: 0 2px 10px rgba(255, 140, 66, 0.06);
+  overflow: hidden;
+}
+
+.error-text {
+  font-size: 26px;
+  color: #ef4444;
+}
+
+.references {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.references-text {
+  font-size: 21px;
+  color: #767676;
+}
+
+.map-image {
+  width: 100%;
+  height: 300px;
+  margin-top: 14px;
+  border-radius: 14px;
+  border: 1px solid #b7e4c7;
+}
+
+.map-image-lg {
+  width: 100%;
+  height: 500px;
+  border-radius: 14px;
+  border: 2px solid #b7e4c7;
+}
+
+.map-link-btn {
+  display: inline-flex;
+  margin-top: 14px;
+  padding: 12px 22px;
+  background: #16a34a;
+  border-radius: 12px;
+}
+
+.map-link-btn.center {
+  display: flex;
+  justify-content: center;
+  margin: 20px auto 0;
+  width: 60%;
+}
+
+.map-link-text {
+  color: #fff;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.extra-box {
+  margin-top: 14px;
+  padding: 14px 18px;
+  background: #eef7ff;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.extra-title {
+  font-size: 22px;
+  font-weight: bold;
+  color: #556;
+  margin-bottom: 4px;
+}
+
+.extra-line {
+  font-size: 22px;
+  color: #667;
+  line-height: 1.5;
+}
+
+/* 快捷区 */
+.quick-area {
+  margin-bottom: 16px;
+}
+
+/* 快捷工具栏外层：左侧滑动区 + 右侧固定按钮区 */
+.quick-toolbar-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+/* 左侧三个 pill：空间不足时横向滑动而非换行 */
+.quick-toolbar-scroll {
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+}
+
+.quick-toolbar {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* 右侧语音/地图固定不参与滑动（与页面底色一致的分隔 + 左缘渐变提示可滑动） */
+.quick-toolbar-fixed {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+  padding-left: 14px;
+  background: linear-gradient(to right, transparent, #fffdf5 14px);
+}
+
+.pill {
+  padding: 10px 22px;
+  border-radius: 999px;
+  font-size: 22px;
+}
+
+.pill-pink {
+  background: #ffe0ec;
+  color: #e0447c;
+}
+
+.pill-sky {
+  background: #e0f2ff;
+  color: #2b8fe3;
+}
+
+.pill-sky-active {
+  background: #b8e2ff;
+  color: #14699f;
+}
+
+.pill-lost {
+  background: #fff0dd;
+  color: #d97706;
+}
+
+.pill-lost-active {
+  background: #ffe0b3;
+  color: #b45309;
+}
+
+.toolbar-spacer {
+  width: 4px;
+}
+
+.tool-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 72px;
+  padding: 6px 10px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.tool-listening {
+  background: #fee2e2;
+}
+
+.tool-icon {
+  font-size: 28px;
+}
+
+.tool-label {
+  font-size: 20px;
+  color: #666;
+}
+
+.quick-scroll {
+  white-space: nowrap;
+  width: 100%;
+}
+
+.quick-row {
+  display: inline-flex;
+  gap: 14px;
+  padding-bottom: 8px;
+}
+
+.quick-card {
+  display: inline-block;
+  padding: 14px 26px;
+  background: #fff;
+  border: 1px solid #ffe0b8;
+  border-radius: 999px;
+  font-size: 23px;
+  color: #b25b00;
+  box-shadow: 0 2px 8px rgba(255, 140, 66, 0.08);
+}
+
+/* 项目面板 */
+.projects-panel {
+  padding: 24px;
+  margin-bottom: 16px;
+  border: 2px solid #ffd9a8;
+}
+
+.projects-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.projects-title {
+  font-size: 25px;
+  font-weight: bold;
+  color: #e07c26;
+}
+
+.projects-close {
+  font-size: 36px;
+  color: #b0a795;
+  padding: 0 12px;
+}
+
+/* ---------- 项目游玩面板：勾选 + 数量 + 合计 + 确认扣费 ---------- */
+.proj-hint {
+  font-size: 22px;
+  color: #b0a795;
+  text-align: center;
+  padding: 24px 0;
+}
+
+/* 两列网格：名称左上 / 勾选框右上 / 价格 / 数量。配色对齐问答页的暖黄底 */
+.proj-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.proj-card {
+  display: flex;
+  flex-direction: column;
+  padding: 16px 14px 12px;
+  border-radius: 16px;
+  border: 1px solid #f0e4d2;
+  background: #fff;
+}
+
+.proj-card-on {
+  background: #fff6ea;
+  border-color: #f0a04b;
+}
+
+.proj-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.proj-check {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid #e0d5c2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.proj-check-on {
+  background: #f08a2e;
+  border-color: #f08a2e;
+}
+
+.proj-check-tick {
+  color: #fff;
+  font-size: 19px;
+  line-height: 1;
+}
+
+.proj-name {
+  flex: 1;
+  min-width: 0;
+  font-size: 24px;
+  font-weight: bold;
+  color: #4a3f2c;
+  line-height: 1.3;
+}
+
+.proj-price {
+  font-size: 20px;
+  color: #a4783f;
+  margin-top: 4px;
+}
+
+.proj-qty {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+/* 未选中：置灰，且不拦截点击（点它等于选中这张卡） */
+.proj-qty-off {
+  opacity: 0.35;
+}
+
+.proj-qty-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid #f0c894;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: #e07c26;
+  background: #fff;
+}
+
+.proj-qty-num {
+  min-width: 32px;
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: #4a3f2c;
+}
+
+.proj-total {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 16px 4px 4px;
+}
+
+.proj-total-label {
+  font-size: 23px;
+  color: #8a7a63;
+}
+
+.proj-total-num {
+  font-size: 34px;
+  font-weight: bold;
+  color: #ff8c42;
+}
+
+.proj-total-avail {
+  font-size: 20px;
+  color: #b0a795;
+}
+
+.proj-submit {
+  margin-top: 14px;
+  background: linear-gradient(135deg, #ffb14d, #ff8c42);
+  border-radius: 999px;
+  padding: 20px 0;
+  text-align: center;
+}
+
+.proj-submit-off {
+  background: #f0e4d2;
+}
+
+/* 置灰态用白字看不清，单独给个暖灰字色 */
+.proj-submit-off .proj-submit-text {
+  color: #b0a795;
+}
+
+.proj-submit-text {
+  color: #fff;
+  font-size: 27px;
+  font-weight: bold;
+}
+
+.proj-done {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.proj-done-title {
+  font-size: 28px;
+  font-weight: bold;
+  color: #e07c26;
+  text-align: center;
+}
+
+.proj-done-sub {
+  font-size: 21px;
+  color: #b0a795;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.proj-done-list {
+  background: #fffaf2;
+  border: 1px solid #f4e3cb;
+  border-radius: 16px;
+  padding: 6px 16px;
+}
+
+.proj-done-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #f6ebda;
+}
+
+.proj-done-row:last-child {
+  border-bottom: none;
+}
+
+.proj-done-name {
+  font-size: 23px;
+  color: #4a3f2c;
+}
+
+.proj-done-code {
+  font-size: 23px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  color: #e07c26;
+}
+
+.proj-done-tip {
+  font-size: 20px;
+  color: #b0a795;
+  text-align: center;
+  margin-top: 10px;
+}
+
+/* 输入区（贴紧底部 tabBar，仅保留安全区距离） */
+.input-area {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.input-box {
+  display: flex;
+  align-items: flex-end;
+  gap: 14px;
+  padding: 18px 20px;
+  background: #fff;
+  border-radius: 24px;
+  border: 2px solid #ffd9a8;
+  box-shadow: 0 4px 16px rgba(255, 140, 66, 0.1);
+}
+
+.input-textarea {
+  flex: 1;
+  min-height: 44px;
+  max-height: 200px;
+  font-size: 26px;
+  line-height: 1.4;
+}
+
+.send-btn {
+  flex-shrink: 0;
+  padding: 16px 30px;
+  background: linear-gradient(135deg, #ff8c42, #ff6b9d);
+  border-radius: 999px;
+  color: #fff;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.send-btn.disabled {
+  opacity: 0.6;
+}
+
+/* ---------- 图文发送：输入栏左侧 + 按钮 与 已选图片预览 ---------- */
+.attach-btn {
+  flex-shrink: 0;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #fff3e0;
+  border: 2px solid #ffc98a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.attach-btn-plus {
+  font-size: 44px;
+  font-weight: bold;
+  color: #ff8c42;
+  line-height: 1;
+  margin-top: -4px;
+}
+
+.attach-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 8px 20px 10px;
+  padding: 12px;
+  background: #fff;
+  border: 2px dashed #ffcf94;
+  border-radius: 18px;
+}
+
+.attach-img {
+  width: 96px;
+  height: 96px;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+
+.attach-meta {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.attach-tip {
+  font-size: 22px;
+  color: #b07830;
+}
+
+.attach-del {
+  font-size: 22px;
+  color: #e05a5a;
+}
+
+/* 用户气泡内的图片（图文消息） */
+.bubble-user-img {
+  width: 260px;
+  border-radius: 12px;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.listening-bar {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 22px;
+  color: #ef4444;
+}
+
+/* 失物招领下拉菜单 */
+.lost-menu {
+  margin-bottom: 16px;
+  padding: 8px 12px;
+  border: 2px solid #ffe0b3;
+}
+
+.lost-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 22px 16px;
+  border-radius: 16px;
+}
+
+.lost-menu-item + .lost-menu-item {
+  border-top: 1px solid #f5ede0;
+}
+
+.lost-menu-item:active {
+  background: #fff7ea;
+}
+
+.lost-menu-icon {
+  font-size: 44px;
+}
+
+.lost-menu-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.lost-menu-title {
+  font-size: 27px;
+  font-weight: bold;
+  color: #7c4a03;
+}
+
+.lost-menu-desc {
+  font-size: 20px;
+  color: #a08050;
+}
+
+/* 报失表单 */
+.lost-form {
+  margin-bottom: 24px;
+}
+
+.lost-field {
+  margin-bottom: 20px;
+}
+
+.lost-label {
+  display: block;
+  font-size: 23px;
+  font-weight: bold;
+  color: #5a4632;
+  margin-bottom: 10px;
+}
+
+.lost-input {
+  height: 88px;
+  box-sizing: border-box;
+  background: #f8f5f0;
+  border: 2px solid #f0e6d8;
+  border-radius: 16px;
+  /* 同首页表单：显式高度 + 水平 padding，避免 input 文字被裁 */
+  padding: 0 20px;
+  font-size: 25px;
+}
+
+.lost-photo-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.lost-photo-add {
+  width: 220px;
+  height: 220px;
+  background: #f8f5f0;
+  border: 2px dashed #e0d0bc;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.lost-photo-icon {
+  font-size: 56px;
+}
+
+.lost-photo-hint {
+  font-size: 20px;
+  color: #a08050;
+}
+
+.lost-photo-preview {
+  position: relative;
+  width: 220px;
+  height: 220px;
+}
+
+.lost-photo-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+}
+
+.lost-photo-del {
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  width: 48px;
+  height: 48px;
+  line-height: 44px;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  border-radius: 50%;
+  font-size: 32px;
+}
+
+/* 照片预识别状态 / 识别结果标签（选完照片自动填名前后的提示） */
+.lost-ai-tip {
+  margin-top: 12px;
+}
+
+.lost-ai-tip-text {
+  font-size: 21px;
+  color: #a08050;
+}
+
+.lost-ai-tags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.lost-ai-title {
+  font-size: 21px;
+  color: #7c4a03;
+  font-weight: bold;
+}
+
+.lost-ai-tag {
+  padding: 4px 14px;
+  background: #fff4e2;
+  border: 1px solid #f0d6ae;
+  border-radius: 999px;
+  font-size: 20px;
+  color: #a05a10;
+}
+
+/* 认领列表 */
+.lost-empty {
+  padding: 60px 0;
+  text-align: center;
+  font-size: 24px;
+  color: #999;
+}
+
+.lost-list {
+  max-height: 640px;
+  margin-bottom: 20px;
+}
+
+.lost-item {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 16px;
+  margin-bottom: 14px;
+  border: 1px solid #e5e5e5;
+}
+
+.lost-item-img {
+  width: 140px;
+  height: 140px;
+  border-radius: 14px;
+  flex-shrink: 0;
+}
+
+.lost-item-img-empty {
+  background: #f0f4f8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 60px;
+}
+
+.lost-item-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.lost-item-name {
+  font-size: 27px;
+  font-weight: bold;
+  color: #333;
+}
+
+.lost-item-time {
+  font-size: 21px;
+  color: #888;
+}
+
+.lost-item-reporter {
+  font-size: 21px;
+  color: #d97706;
+}
+
+/* 弹窗 */
+.modal-mask {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-mask.light {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.modal-body {
+  width: 84%;
+  max-width: 640px;
+  padding: 40px 32px;
+  box-sizing: border-box;
+}
+
+/* ---------- AI 画像底部抽屉（「画像」小图标点开） ---------- */
+.profile-mask {
+  align-items: flex-end;
+}
+
+.profile-sheet {
+  width: 100%;
+  max-height: 84vh;
+  display: flex;
+  flex-direction: column;
+  background: #fffdf5;
+  border-radius: 32px 32px 0 0;
+  padding: 28px 32px 44px;
+  box-sizing: border-box;
+}
+
+.profile-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #f0e6d2;
+}
+
+.profile-head-main {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.profile-title {
+  font-size: 34px;
+  font-weight: 700;
+  color: #3a2f22;
+}
+
+.profile-sub {
+  margin-top: 8px;
+  font-size: 22px;
+  color: #8a8f99;
+}
+
+.profile-clear {
+  font-size: 24px;
+  color: #c0563f;
+  padding: 6px 0 6px 16px;
+}
+
+.profile-body {
+  flex: 1;
+  max-height: 60vh;
+  padding-top: 22px;
+  box-sizing: border-box;
+}
+
+.profile-label {
+  display: block;
+  font-size: 26px;
+  font-weight: 600;
+  color: #3a2f22;
+  margin: 28px 0 14px;
+}
+
+.profile-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.profile-line .profile-label {
+  margin: 0;
+}
+
+.profile-hint {
+  display: block;
+  font-size: 22px;
+  color: #a2a7b0;
+  line-height: 1.6;
+  margin-top: 12px;
+}
+
+.profile-switch {
+  margin-top: 36px;
+  padding-top: 22px;
+  border-top: 1px solid #f0e6d2;
+}
+
+.stepper {
+  display: flex;
+  align-items: center;
+}
+
+.step-btn {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #fff;
+  border: 1px solid #e8dcc4;
+  font-size: 30px;
+  color: #b98a2e;
+}
+
+.step-num {
+  min-width: 64px;
+  text-align: center;
+  font-size: 30px;
+  font-weight: 700;
+  color: #3a2f22;
+}
+
+.kid-card {
+  margin-top: 18px;
+  padding: 22px 24px;
+  border-radius: 18px;
+  background: #fff;
+  border: 1px solid #f0e6d2;
+}
+
+.kid-title {
+  display: block;
+  font-size: 24px;
+  font-weight: 600;
+  color: #6b7691;
+  margin-bottom: 16px;
+}
+
+.kid-line {
+  display: flex;
+  align-items: center;
+}
+
+.kid-line + .kid-line {
+  margin-top: 16px;
+}
+
+/* v5：每个孩子卡片里的小标题（喜欢 / 症状），比顶部 .profile-label 更轻 */
+.kid-sub {
+  display: block;
+  margin: 22px 0 12px;
+  font-size: 22px;
+  font-weight: 600;
+  color: #8a7a5c;
+}
+
+/* 小标题里的操作提示（"点一下选中；长按标为不喜欢"），不抢视觉 */
+.kid-sub-tip {
+  font-size: 20px;
+  font-weight: 400;
+  color: #a9b0bf;
+}
+
+/* 孩子卡片里的标签密一些，避免一张卡撑得太长 */
+.chip-sm {
+  padding: 8px 18px;
+  font-size: 22px;
+  margin: 0 10px 10px 0;
+}
+
+/* 「不喜欢」选中用灰红，与「喜欢」的橙色区分开（一眼能看出正负） */
+.chip-warn.chip-on {
+  background: #c96a5a;
+  border-color: #c96a5a;
+}
+
+/* 「症状」选中用中性蓝灰，表示"注意事项"而非喜好 */
+.chip-ghost.chip-on {
+  background: #7f8aa3;
+  border-color: #7f8aa3;
+}
+
+.picker-box {
+  flex: 1;
+  height: 64px;
+  margin-right: 16px;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 14px;
+  background: #fffdf5;
+  border: 1px solid #f0e6d2;
+  box-sizing: border-box;
+}
+
+.picker-box:last-child {
+  margin-right: 0;
+}
+
+.picker-val {
+  font-size: 26px;
+  color: #3a2f22;
+}
+
+.picker-empty {
+  color: #b8bcc4;
+}
+
+.picker-arrow {
+  font-size: 22px;
+  color: #b98a2e;
+}
+
+.chip-wrap {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.chip {
+  margin: 0 14px 14px 0;
+  padding: 12px 26px;
+  border-radius: 999px;
+  font-size: 24px;
+  color: #8a7a5c;
+  background: #fff;
+  border: 1px solid #e8dcc4;
+}
+
+.chip-on {
+  color: #fff;
+  background: #e8963a;
+  border-color: #e8963a;
+}
+
+/* AI 自动记住的关键词：只读，与可点选的标签在视觉上区分开 */
+.chip-ro {
+  color: #6b7691;
+  background: #f4f0e6;
+  border-color: #f4f0e6;
+}
+
+.profile-save {
+  margin-top: 28px;
+  height: 88px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: #e8963a;
+  font-size: 30px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.profile-save-off {
+  opacity: 0.6;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.modal-title-pink {
+  font-size: 32px;
+  font-weight: bold;
+  color: #e0447c;
+}
+
+.modal-title-green {
+  font-size: 30px;
+  font-weight: bold;
+  color: #16a34a;
+}
+
+.modal-close {
+  font-size: 40px;
+  color: #888;
+  padding: 0 12px;
+}
+
+.modal-tip {
+  font-size: 22px;
+  color: #666;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.modal-tip-small {
+  font-size: 20px;
+  color: #767676;
+  text-align: center;
+  margin-top: 16px;
+}
+
+.modal-ok-btn {
+  margin-top: 24px;
+  background: #ff6b9d;
+  border-radius: 999px;
+  padding: 18px 0;
+  text-align: center;
+}
+
+.modal-ok-text {
+  color: #fff;
+  font-size: 26px;
+  font-weight: bold;
+}
+
+.mini-map {
+  width: 100%;
+  height: 520px;
+  border-radius: 16px;
+  border: 2px solid #b7e4c7;
+}
+
+.map-address {
+  display: block;
+  margin-top: 14px;
+  text-align: center;
+  font-size: 21px;
+  color: #666;
+}
+
+.map-hint {
+  display: block;
+  margin-top: 14px;
+  text-align: center;
+  font-size: 20px;
+  color: #767676;
+}
+
+/* 星级评价 */
+.rating-title {
+  display: block;
+  text-align: center;
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.rating-sub {
+  display: block;
+  text-align: center;
+  font-size: 21px;
+  color: #666;
+  margin-bottom: 24px;
+}
+
+.rating-stars {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  margin-bottom: 24px;
+}
+
+.star {
+  font-size: 52px;
+  color: #d4d4d8; /* 未选中：空心灰 */
+}
+
+/* 选中态：实心金黄 */
+.star-active {
+  color: #ffb800;
+}
+
+/* 提交按钮 */
+.rating-submit {
+  margin-bottom: 16px;
+  background: linear-gradient(135deg, #ff9a3d, #ff6b9d);
+  border-radius: 999px;
+  padding: 20px 0;
+  text-align: center;
+}
+
+.rating-submit-disabled {
+  opacity: 0.45;
+}
+
+.rating-submit-hover {
+  opacity: 0.85;
+}
+
+.rating-submit-text {
+  font-size: 27px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.rating-tags {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.rating-tag {
+  padding: 10px 20px;
+  border-radius: 999px;
+  font-size: 21px;
+}
+
+.rating-tag.green { background: #dcfce7; color: #15803d; }
+.rating-tag.blue { background: #dbeafe; color: #1d4ed8; }
+.rating-tag.orange { background: #ffedd5; color: #c2410c; }
+
+.rating-close {
+  background: #e5e7eb;
+  border-radius: 12px;
+  padding: 16px 0;
+  text-align: center;
+  font-size: 24px;
+  color: #666;
+}
+
+/* ============ 业务 Agent 服务按钮（去办卡/失物认领/报失登记） ============ */
+.service-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.service-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 22px;
+  border-radius: 999px;
+  background: #ffffff;
+  border: 2px solid #6fc2ff;
+}
+
+.service-chip-hover {
+  opacity: 0.7;
+}
+
+.service-chip-text {
+  font-size: 22px;
+  color: #2b8fe3;
+}
+
+/* ============ 杠杆3/4 交互细节 ============ */
+.references {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.references-text {
+  font-size: 20px;
+  color: #9aa7b8;
+}
+
+.reference-chip {
+  font-size: 18px;
+  color: #2b8fe3;
+  background: #eaf4ff;
+  padding: 2px 12px;
+  border-radius: 999px;
+}
+
+.reference-chip-hover { opacity: 0.7; }
+
+.suggest-row {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.suggest-label { font-size: 20px; color: #9aa7b8; }
+
+.suggest-chip {
+  display: inline-flex;
+  align-self: flex-start;
+  max-width: 100%;
+  background: #f2f8ff;
+  border: 1px dashed #6fc2ff;
+  border-radius: 14px;
+  padding: 10px 18px;
+}
+
+.suggest-chip-hover { background: #e3f2ff; }
+
+.suggest-chip-text { font-size: 21px; color: #2b8fe3; line-height: 1.4; }
+
+.answer-meta {
+  display: flex;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.answer-meta-tag { font-size: 18px; color: #9aa7b8; }
+
+/* ---------- AI 回答操作条：复制 / 收藏 / 转发 / 删除 ---------- */
+.msg-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px dashed #f0e4d2;
+}
+
+.msg-action {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: #fff8ef;
+  border: 1px solid #ffe3c2;
+}
+
+.msg-action-hover { background: #ffefdc; }
+
+.msg-action-icon { font-size: 20px; }
+
+.msg-action-text { font-size: 19px; color: #a4783f; }
+
+.msg-action-done {
+  background: #fff4d6;
+  border-color: #ffd166;
+}
+
+.msg-action-done .msg-action-text { color: #c48a13; }
+
+.msg-action-del { background: #fff5f5; border-color: #ffd9d9; }
+
+.msg-action-del .msg-action-text { color: #d2695b; }
+
+/* 转发长图的离屏画布（不可见，仅用于绘制导出图片） */
+.share-canvas {
+  position: fixed;
+  left: -9999px;
+  top: 0;
+  width: 750px;
+  height: 10px;
+}
+
+.tts-btn {
+  margin-top: 10px;
+  width: 56px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f0f6ff;
+  border-radius: 999px;
+}
+
+.tts-btn-icon { font-size: 24px; }
+
+.send-stop {
+  background: #ff6b6b !important;
+}
+
+.send-stop Text { color: #ffffff; }
+
+/* ============ 消费统计图表 ============ */
+.charts-row {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.chart-card {
+  background: #ffffff;
+  border: 1px solid #e4ecf5;
+  border-radius: 16px;
+  padding: 12px;
+}
+
+.chart-title {
+  display: block;
+  font-size: 24px;
+  font-weight: bold;
+  color: #2f3a4a;
+  margin-bottom: 10px;
+}
+
+.chart-img {
+  width: 100%;
+  border-radius: 10px;
+  background: #f8fafc;
+}

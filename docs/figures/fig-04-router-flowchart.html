@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>三级意图路由</title>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&family=Noto+Serif:ital@0;1&family=Noto+Sans+SC:wght@400;500;600&family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --color-paper:   #faf6ee;
+      --color-paper-2: #f1ebdd;
+      --color-ink:     #2b2a24;
+      --color-muted:   #5c5748;
+      --color-soft:    #8a8371;
+      --color-accent:  #d98e00;
+      --font-sans:     'Geist', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      --font-serif:    'Instrument Serif', 'Noto Serif SC', 'Noto Serif', serif;
+      --font-mono:     'Geist Mono', ui-monospace, monospace;
+    }
+    body {
+      font-family: var(--font-sans); background: var(--color-paper); color: var(--color-ink);
+      min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 3rem 2rem;
+    }
+    .frame { max-width: 1200px; width: 100%; }
+    .eyebrow { font-family: var(--font-mono); font-size: 0.66rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-muted); margin-bottom: 0.5rem; }
+    h1 { font-family: var(--font-serif); font-size: clamp(1.5rem, 2.4vw + 0.75rem, 2rem); font-weight: 400; letter-spacing: -0.02em; line-height: 1.15; color: var(--color-ink); margin-bottom: 1.5rem; }
+    svg { width: 100%; min-width: 900px; display: block; }
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <p class="eyebrow">Flowchart · 技术方案书 3.1.1</p>
+    <h1>三级瀑布式意图路由：只有值得的路由才花钱</h1>
+
+    <svg viewBox="0 0 960 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="fig04-router-title fig04-router-desc">
+      <title id="fig04-router-title">三级意图路由决策流程</title>
+      <desc id="fig04-router-desc">用户问句先走 L1 关键词快速通道，未命中且带行动或实时数据强信号时触发 L2 小模型分类，否则走 L3 默认 RAG 链路，最终进入对应 Agent 链路。</desc>
+
+      <rect width="100%" height="100%" fill="#faf6ee"/>
+
+      <defs>
+        <marker id="arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#5c5748"/></marker>
+        <marker id="arrow-accent" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#d98e00"/></marker>
+      </defs>
+
+      <!-- ===== 箭头先画 ===== -->
+      <!-- 开始 → D1 -->
+      <line x1="300" y1="112" x2="300" y2="148" stroke="#5c5748" stroke-width="1" marker-end="url(#arrow)"/>
+      <!-- D1 命中 → L1（焦点，向右） -->
+      <line x1="384" y1="188" x2="604" y2="188" stroke="#d98e00" stroke-width="1.2" marker-end="url(#arrow-accent)"/>
+      <rect x="452" y="164" width="44" height="16" rx="2" fill="#faf6ee"/>
+      <text x="474" y="176" fill="#5c5748" font-size="12" font-weight="500" text-anchor="middle" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">命中</text>
+      <!-- D1 未命中 ↓ -->
+      <line x1="300" y1="224" x2="300" y2="260" stroke="#5c5748" stroke-width="1" marker-end="url(#arrow)"/>
+      <rect x="308" y="232" width="56" height="16" rx="2" fill="#faf6ee"/>
+      <text x="336" y="244" fill="#5c5748" font-size="12" font-weight="500" text-anchor="middle" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">未命中</text>
+      <!-- D2 带强信号 → L2（向右） -->
+      <line x1="384" y1="304" x2="604" y2="304" stroke="#5c5748" stroke-width="1" marker-end="url(#arrow)"/>
+      <rect x="436" y="280" width="76" height="16" rx="2" fill="#faf6ee"/>
+      <text x="474" y="292" fill="#5c5748" font-size="12" font-weight="500" text-anchor="middle" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">带强信号</text>
+      <!-- D2 默认 ↓ -->
+      <line x1="300" y1="340" x2="300" y2="372" stroke="#5c5748" stroke-width="1" marker-end="url(#arrow)"/>
+      <rect x="308" y="348" width="44" height="16" rx="2" fill="#faf6ee"/>
+      <text x="330" y="360" fill="#5c5748" font-size="12" font-weight="500" text-anchor="middle" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">默认</text>
+      <!-- L3 → 结束（左缘） -->
+      <path d="M 300 440 L 300 492 Q 300 500 308 500 L 556 500" fill="none" stroke="#5c5748" stroke-width="1" marker-end="url(#arrow)"/>
+      <!-- L1 → 结束（右缘 y=500） -->
+      <path d="M 728 188 L 760 188 Q 768 188 768 196 L 768 492 Q 768 500 760 500 L 740 500" fill="none" stroke="#5c5748" stroke-width="1" marker-end="url(#arrow)"/>
+      <!-- L2 → 结束（右缘 y=508） -->
+      <path d="M 728 304 L 792 304 Q 800 304 800 312 L 800 500 Q 800 508 792 508 L 738 508" fill="none" stroke="#5c5748" stroke-width="1" marker-end="url(#arrow)"/>
+
+      <!-- ===== 节点 ===== -->
+      <!-- 开始（椭圆） -->
+      <rect x="236" y="72" width="128" height="40" rx="20" fill="rgba(92,87,72,0.10)" stroke="#8a8371" stroke-width="0.8"/>
+      <text x="300" y="97" fill="#2b2a24" font-size="12" font-weight="600" text-anchor="middle" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">用户问句</text>
+
+      <!-- D1 决策菱形 -->
+      <polygon points="300,148 384,188 300,228 216,188" fill="#ffffff" stroke="#2b2a24" stroke-width="1"/>
+      <text x="300" y="184" fill="#2b2a24" font-size="12" font-weight="600" text-anchor="middle" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">L1 关键词</text>
+      <text x="300" y="200" fill="#2b2a24" font-size="12" font-weight="600" text-anchor="middle" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">命中？</text>
+
+      <!-- D2 决策菱形 -->
+      <polygon points="300,260 384,304 300,348 216,304" fill="#ffffff" stroke="#2b2a24" stroke-width="1"/>
+      <text x="300" y="300" fill="#2b2a24" font-size="12" font-weight="600" text-anchor="middle" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">带行动 / 实时</text>
+      <text x="300" y="316" fill="#2b2a24" font-size="12" font-weight="600" text-anchor="middle" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">数据强信号？</text>
+
+      <!-- L1 快速通道（焦点） -->
+      <rect x="608" y="156" width="120" height="64" rx="6" fill="rgba(217,142,0,0.10)" stroke="#d98e00" stroke-width="1.2"/>
+      <text x="668" y="183" fill="#2b2a24" font-size="12" font-weight="600" text-anchor="middle" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">L1 规则快速通道</text>
+      <text x="668" y="201" fill="#8a8371" font-size="8" text-anchor="middle" font-family="'Geist Mono',monospace">0 LLM · 0 ms</text>
+
+      <!-- L2 小模型分类 -->
+      <rect x="608" y="268" width="120" height="72" rx="6" fill="#ffffff" stroke="#2b2a24" stroke-width="1"/>
+      <text x="668" y="292" fill="#2b2a24" font-size="12" font-weight="600" text-anchor="middle" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">L2 小模型分类</text>
+      <text x="668" y="308" fill="#8a8371" font-size="8" text-anchor="middle" font-family="'Geist Mono',monospace">timeout 2.5 s</text>
+      <text x="668" y="322" fill="#8a8371" font-size="8" text-anchor="middle" font-family="'Geist Mono',monospace">single shot</text>
+
+      <!-- L3 默认 RAG -->
+      <rect x="228" y="372" width="144" height="64" rx="6" fill="#ffffff" stroke="#2b2a24" stroke-width="1"/>
+      <text x="300" y="399" fill="#2b2a24" font-size="12" font-weight="600" text-anchor="middle" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">L3 默认 RAG 链路</text>
+      <text x="300" y="417" fill="#8a8371" font-size="8" text-anchor="middle" font-family="'Geist Mono',monospace">behavior unchanged</text>
+
+      <!-- 结束（椭圆） -->
+      <rect x="560" y="476" width="176" height="48" rx="24" fill="rgba(92,87,72,0.10)" stroke="#8a8371" stroke-width="0.8"/>
+      <text x="648" y="505" fill="#2b2a24" font-size="12" font-weight="600" text-anchor="middle" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">进入对应 Agent 链路</text>
+
+      <!-- callout -->
+      <text x="300" y="556" fill="#5c5748" font-size="13" font-style="italic" text-anchor="middle" font-family="'Noto Serif SC','Noto Serif',serif">RAG 热路径一次 LLM 都不多；关键词匹配只看本轮问句，不看历史全文</text>
+
+      <!-- Legend -->
+      <line x1="56" y1="576" x2="904" y2="576" stroke="rgba(43,42,36,0.10)" stroke-width="0.8"/>
+      <text x="56" y="596" fill="#5c5748" font-size="9" font-family="'Geist Mono',monospace" letter-spacing="0.14em">LEGEND</text>
+      <rect x="140" y="584" width="24" height="12" rx="6" fill="rgba(92,87,72,0.10)" stroke="#8a8371" stroke-width="0.8"/>
+      <text x="172" y="595" fill="#5c5748" font-size="12" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">起止</text>
+      <rect x="220" y="584" width="14" height="12" rx="2" fill="#ffffff" stroke="#2b2a24" stroke-width="1"/>
+      <text x="242" y="595" fill="#5c5748" font-size="12" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">处理</text>
+      <polygon points="330,584 342,590 330,596 318,590" fill="#ffffff" stroke="#2b2a24" stroke-width="1"/>
+      <text x="350" y="595" fill="#5c5748" font-size="12" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">判断</text>
+      <rect x="396" y="584" width="14" height="12" rx="2" fill="rgba(217,142,0,0.10)" stroke="#d98e00" stroke-width="1"/>
+      <text x="418" y="595" fill="#5c5748" font-size="12" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">焦点（零 LLM 通道）</text>
+    </svg>
+  </div>
+</body>
+</html>

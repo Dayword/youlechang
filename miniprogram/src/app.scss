@@ -1,0 +1,47 @@
+/* 全局样式：游乐场暖色主题 */
+page {
+  background: #FFF7E0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica,
+    Segoe UI, Arial, Roboto, 'PingFang SC', 'miui', 'Hiragino Sans GB', 'Microsoft Yahei',
+    sans-serif;
+  font-size: 28px;
+  color: #333;
+}
+
+/* 通用卡片 */
+.card {
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 24px;
+  box-shadow: 0 4px 20px rgba(255, 140, 66, 0.08);
+}
+
+/* 消息入场动画 */
+.msg-enter {
+  animation: msgIn 0.25s ease-out;
+}
+
+@keyframes msgIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 思考中呼吸动画 */
+@keyframes breathe {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.breathe {
+  animation: breathe 1.2s ease-in-out infinite;
+}

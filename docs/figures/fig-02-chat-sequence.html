@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>一次游客问答的完整链路</title>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&family=Noto+Serif:ital@0;1&family=Noto+Sans+SC:wght@400;500;600&family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --color-paper:   #faf6ee;
+      --color-paper-2: #f1ebdd;
+      --color-ink:     #2b2a24;
+      --color-muted:   #5c5748;
+      --color-soft:    #8a8371;
+      --color-accent:  #d98e00;
+      --font-sans:     'Geist', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      --font-serif:    'Instrument Serif', 'Noto Serif SC', 'Noto Serif', serif;
+      --font-mono:     'Geist Mono', ui-monospace, monospace;
+    }
+    body {
+      font-family: var(--font-sans); background: var(--color-paper); color: var(--color-ink);
+      min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 3rem 2rem;
+    }
+    .frame { max-width: 1200px; width: 100%; }
+    .eyebrow { font-family: var(--font-mono); font-size: 0.66rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-muted); margin-bottom: 0.5rem; }
+    h1 { font-family: var(--font-serif); font-size: clamp(1.5rem, 2.4vw + 0.75rem, 2rem); font-weight: 400; letter-spacing: -0.02em; line-height: 1.15; color: var(--color-ink); margin-bottom: 1.5rem; }
+    svg { width: 100%; min-width: 900px; display: block; }
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <p class="eyebrow">Sequence · 技术方案书 2.1</p>
+    <h1>一次游客问答的完整链路（POST /chat/stream）</h1>
+
+    <svg viewBox="0 0 960 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="fig02-seq-title fig02-seq-desc">
+      <title id="fig02-seq-title">一次游客问答的完整链路时序图</title>
+      <desc id="fig02-seq-desc">游客小程序经 FastAPI 网关发起流式问答，三级意图路由后进入 RAG 管线，SSE 逐帧回传回答，收尾落日志并更新画像。</desc>
+
+      <rect width="100%" height="100%" fill="#faf6ee"/>
+
+      <defs>
+        <marker id="arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#5c5748"/></marker>
+        <marker id="arrow-accent" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#d98e00"/></marker>
+        <marker id="arrow-open" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polyline points="0 0, 8 3, 0 6" fill="none" stroke="#8a8371" stroke-width="1.2"/></marker>
+      </defs>
+
+      <!-- Actor boxes (y=48..92) -->
+      <g>
+        <rect x="56"  y="48" width="128" height="44" rx="6" fill="#faf6ee"/><rect x="56"  y="48" width="128" height="44" rx="6" fill="rgba(92,87,72,0.10)" stroke="#8a8371" stroke-width="0.8"/>
+        <text x="120" y="68" fill="#2b2a24" font-size="12" font-weight="600" text-anchor="middle" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">游客小程序</text>
+        <text x="120" y="83" fill="#8a8371" font-size="8" text-anchor="middle" font-family="'Geist Mono',monospace">miniprogram</text>
+
+        <rect x="236" y="48" width="128" height="44" rx="6" fill="#ffffff" stroke="#2b2a24" stroke-width="1"/>
+        <text x="300" y="68" fill="#2b2a24" font-size="12" font-weight="600" text-anchor="middle" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">FastAPI 网关</text>
+        <text x="300" y="83" fill="#8a8371" font-size="8" text-anchor="middle" font-family="'Geist Mono',monospace">/chat/stream</text>
+
+        <rect x="416" y="48" width="128" height="44" rx="6" fill="#ffffff" stroke="#2b2a24" stroke-width="1"/>
+        <text x="480" y="68" fill="#2b2a24" font-size="12" font-weight="600" text-anchor="middle" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">RouterAgent</text>
+        <text x="480" y="83" fill="#8a8371" font-size="8" text-anchor="middle" font-family="'Geist Mono',monospace">L1 / L2 / L3</text>
+
+        <rect x="596" y="48" width="128" height="44" rx="6" fill="rgba(217,142,0,0.10)" stroke="#d98e00" stroke-width="1.2"/>
+        <text x="660" y="68" fill="#2b2a24" font-size="12" font-weight="600" text-anchor="middle" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">编排与检索管线</text>
+        <text x="660" y="83" fill="#8a8371" font-size="8" text-anchor="middle" font-family="'Geist Mono',monospace">RAG PIPELINE</text>
+
+        <rect x="776" y="48" width="128" height="44" rx="6" fill="rgba(43,42,36,0.05)" stroke="#5c5748" stroke-width="0.8"/>
+        <text x="840" y="68" fill="#2b2a24" font-size="12" font-weight="600" text-anchor="middle" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">会话与画像</text>
+        <text x="840" y="83" fill="#8a8371" font-size="8" text-anchor="middle" font-family="'Geist Mono',monospace">mysql · redis</text>
+      </g>
+
+      <!-- Lifelines -->
+      <g stroke="rgba(43,42,36,0.20)" stroke-width="1" stroke-dasharray="3,3">
+        <line x1="120" y1="92" x2="120" y2="540"/>
+        <line x1="300" y1="92" x2="300" y2="540"/>
+        <line x1="480" y1="92" x2="480" y2="540"/>
+        <line x1="660" y1="92" x2="660" y2="540"/>
+        <line x1="840" y1="92" x2="840" y2="540"/>
+      </g>
+
+      <!-- Activation bars -->
+      <rect x="296" y="128" width="8" height="264" fill="rgba(43,42,36,0.06)" stroke="#5c5748" stroke-width="0.8"/>
+      <rect x="476" y="168" width="8" height="64"  fill="rgba(43,42,36,0.06)" stroke="#5c5748" stroke-width="0.8"/>
+      <rect x="656" y="248" width="8" height="120" fill="rgba(43,42,36,0.06)" stroke="#5c5748" stroke-width="0.8"/>
+
+      <!-- m1 y=140 小程序→网关 -->
+      <line x1="124" y1="140" x2="292" y2="140" stroke="#5c5748" stroke-width="1" marker-end="url(#arrow)"/>
+      <rect x="128" y="116" width="176" height="16" rx="2" fill="#faf6ee"/>
+      <text x="216" y="128" fill="#5c5748" font-size="8" text-anchor="middle" font-family="'Geist Mono',monospace" letter-spacing="0.04em">POST /chat/stream</text>
+
+      <!-- m2 y=180 网关→Router -->
+      <line x1="304" y1="180" x2="472" y2="180" stroke="#5c5748" stroke-width="1" marker-end="url(#arrow)"/>
+      <rect x="312" y="156" width="152" height="16" rx="2" fill="#faf6ee"/>
+      <text x="388" y="168" fill="#5c5748" font-size="12" font-weight="500" text-anchor="middle" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">意图路由</text>
+
+      <!-- m3 y=220 Router→网关 返回 -->
+      <line x1="472" y1="220" x2="308" y2="220" stroke="#5c5748" stroke-width="1" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
+      <rect x="316" y="196" width="148" height="16" rx="2" fill="#faf6ee"/>
+      <text x="390" y="208" fill="#5c5748" font-size="12" font-weight="500" text-anchor="middle" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">L1 命中 · 0 次 LLM</text>
+
+      <!-- m4 y=260 网关→管线 -->
+      <line x1="308" y1="260" x2="652" y2="260" stroke="#5c5748" stroke-width="1" marker-end="url(#arrow)"/>
+      <rect x="352" y="236" width="152" height="16" rx="2" fill="#faf6ee"/>
+      <text x="428" y="248" fill="#5c5748" font-size="12" font-weight="500" text-anchor="middle" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">调度 RAG 链路</text>
+
+      <!-- m5 y=300 管线自环 -->
+      <path d="M 664 292 L 712 292 L 712 324 L 668 324" fill="none" stroke="#5c5748" stroke-width="1" marker-end="url(#arrow)"/>
+      <rect x="676" y="284" width="196" height="16" rx="2" fill="#faf6ee"/>
+      <text x="774" y="296" fill="#5c5748" font-size="12" font-weight="500" text-anchor="middle" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">改写 → 混合检索 → 融合 → 精排</text>
+
+      <!-- m6 y=352 管线→网关 返回 -->
+      <line x1="652" y1="352" x2="312" y2="352" stroke="#5c5748" stroke-width="1" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
+      <rect x="400" y="328" width="164" height="16" rx="2" fill="#faf6ee"/>
+      <text x="482" y="340" fill="#5c5748" font-size="12" font-weight="500" text-anchor="middle" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">SSE 帧 step / meta</text>
+
+      <!-- m7 y=384 网关→小程序（headline） -->
+      <line x1="296" y1="384" x2="128" y2="384" stroke="#d98e00" stroke-width="1.2" marker-end="url(#arrow-accent)"/>
+      <rect x="132" y="360" width="152" height="16" rx="2" fill="#faf6ee"/>
+      <text x="208" y="372" fill="#2b2a24" font-size="12" font-weight="500" text-anchor="middle" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">流式回答 + 可展开轨迹</text>
+
+      <!-- m8 y=448 管线→会话画像 异步 -->
+      <line x1="668" y1="448" x2="772" y2="448" stroke="#8a8371" stroke-width="1" stroke-dasharray="5,4" marker-end="url(#arrow-open)"/>
+      <rect x="676" y="424" width="92" height="16" rx="2" fill="#faf6ee"/>
+      <text x="722" y="436" fill="#8a8371" font-size="12" font-weight="500" text-anchor="middle" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">收尾落库</text>
+      <rect x="688" y="462" width="152" height="16" rx="2" fill="#faf6ee"/>
+      <text x="764" y="474" fill="#5c5748" font-size="12" font-weight="500" text-anchor="middle" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">question_logs · 画像 · 追问</text>
+
+      <!-- Legend -->
+      <line x1="56" y1="552" x2="904" y2="552" stroke="rgba(43,42,36,0.10)" stroke-width="0.8"/>
+      <text x="56" y="572" fill="#5c5748" font-size="9" font-family="'Geist Mono',monospace" letter-spacing="0.14em">LEGEND</text>
+      <line x1="140" y1="569" x2="164" y2="569" stroke="#5c5748" stroke-width="1" marker-end="url(#arrow)"/>
+      <text x="172" y="573" fill="#5c5748" font-size="12" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">调用</text>
+      <line x1="228" y1="569" x2="252" y2="569" stroke="#5c5748" stroke-width="1" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
+      <text x="260" y="573" fill="#5c5748" font-size="12" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">返回</text>
+      <line x1="316" y1="569" x2="340" y2="569" stroke="#d98e00" stroke-width="1.2" marker-end="url(#arrow-accent)"/>
+      <text x="348" y="573" fill="#5c5748" font-size="12" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">核心响应</text>
+      <line x1="436" y1="569" x2="460" y2="569" stroke="#8a8371" stroke-width="1" stroke-dasharray="5,4" marker-end="url(#arrow-open)"/>
+      <text x="468" y="573" fill="#5c5748" font-size="12" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">异步落库</text>
+    </svg>
+  </div>
+</body>
+</html>

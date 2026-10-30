@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>融合权重 α 标定扫描</title>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&family=Noto+Serif:ital@0;1&family=Noto+Sans+SC:wght@400;500;600&family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --color-paper:   #faf6ee;
+      --color-paper-2: #f1ebdd;
+      --color-ink:     #2b2a24;
+      --color-muted:   #5c5748;
+      --color-soft:    #8a8371;
+      --color-accent:  #d98e00;
+      --font-sans:     'Geist', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      --font-serif:    'Instrument Serif', 'Noto Serif SC', 'Noto Serif', serif;
+      --font-mono:     'Geist Mono', ui-monospace, monospace;
+    }
+    body {
+      font-family: var(--font-sans); background: var(--color-paper); color: var(--color-ink);
+      min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 3rem 2rem;
+    }
+    .frame { max-width: 1200px; width: 100%; }
+    .eyebrow { font-family: var(--font-mono); font-size: 0.66rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-muted); margin-bottom: 0.5rem; }
+    h1 { font-family: var(--font-serif); font-size: clamp(1.5rem, 2.4vw + 0.75rem, 2rem); font-weight: 400; letter-spacing: -0.02em; line-height: 1.15; color: var(--color-ink); margin-bottom: 1.5rem; }
+    svg { width: 100%; min-width: 900px; display: block; }
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <p class="eyebrow">Line Chart · 技术方案书 4.3.3</p>
+    <h1>融合权重 α 标定：α ≥ 0.6 进入平台期，0.6 为平台内最小语义权重</h1>
+
+    <svg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="fig07-alpha-title fig07-alpha-desc">
+      <title id="fig07-alpha-title">融合权重 α 扫描折线图</title>
+      <desc id="fig07-alpha-desc">在零泄漏独立问法集上，recall@1、recall@4 与端到端 recall 三条曲线随 α 从 0 到 1 的变化：α 不大于 0.4 时停滞在低位，α 不小于 0.6 后跳上平台并不再变化。</desc>
+
+      <rect width="100%" height="100%" fill="#faf6ee"/>
+
+      <!-- 平台期高亮带 -->
+      <rect x="608" y="40" width="352" height="380" fill="rgba(217,142,0,0.06)"/>
+
+      <!-- 网格线 -->
+      <g stroke="rgba(43,42,36,0.10)" stroke-width="0.8">
+        <line x1="80" y1="420" x2="960" y2="420"/>
+        <line x1="80" y1="325" x2="960" y2="325"/>
+        <line x1="80" y1="230" x2="960" y2="230"/>
+        <line x1="80" y1="135" x2="960" y2="135"/>
+        <line x1="80" y1="40"  x2="960" y2="40"/>
+      </g>
+      <g fill="#5c5748" font-size="8" font-family="'Geist Mono',monospace" text-anchor="end">
+        <text x="72" y="423">0.60</text>
+        <text x="72" y="328">0.70</text>
+        <text x="72" y="233">0.80</text>
+        <text x="72" y="138">0.90</text>
+        <text x="72" y="43">1.00</text>
+      </g>
+      <g fill="#5c5748" font-size="8" font-family="'Geist Mono',monospace" text-anchor="middle">
+        <text x="80"  y="440">0.0</text>
+        <text x="256" y="440">0.2</text>
+        <text x="432" y="440">0.4</text>
+        <text x="608" y="440">0.6</text>
+        <text x="784" y="440">0.8</text>
+        <text x="960" y="440">1.0</text>
+      </g>
+
+      <!-- 轴标题 -->
+      <text x="24" y="230" fill="#5c5748" font-size="12" text-anchor="middle" transform="rotate(-90 24 230)" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">召回率</text>
+      <text x="520" y="464" fill="#5c5748" font-size="12" text-anchor="middle" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">融合权重 α（向量权重）</text>
+
+      <!-- α=0.6 生产取值竖线 -->
+      <line x1="608" y1="40" x2="608" y2="420" stroke="#d98e00" stroke-width="1" stroke-dasharray="4,3"/>
+      <rect x="616" y="48" width="132" height="16" rx="2" fill="#faf6ee"/>
+      <text x="624" y="60" fill="#5c5748" font-size="12" font-weight="500" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">生产取值 α = 0.6</text>
+
+      <!-- 非焦点系列：端到端 recall（series-1） -->
+      <polyline points="80,222.7 256,222.7 432,222.7 608,113.0 784,113.0 960,113.0"
+                fill="none" stroke="#7c8f6f" stroke-width="1.2" stroke-linejoin="round"/>
+      <!-- 非焦点系列：recall@1（series-2） -->
+      <polyline points="80,332.3 256,332.3 432,332.3 608,186.1 784,186.1 960,186.1"
+                fill="none" stroke="#5e7a9b" stroke-width="1.2" stroke-linejoin="round"/>
+      <!-- 焦点系列：recall@4 -->
+      <polyline points="80,149.6 256,149.6 432,149.6 608,40 784,40 960,40"
+                fill="none" stroke="#d98e00" stroke-width="1.8" stroke-linejoin="round"/>
+      <g fill="#d98e00">
+        <circle cx="80"  cy="149.6" r="4"/><circle cx="256" cy="149.6" r="4"/><circle cx="432" cy="149.6" r="4"/>
+        <circle cx="608" cy="40" r="4"/><circle cx="784" cy="40" r="4"/><circle cx="960" cy="40" r="4"/>
+      </g>
+
+      <!-- callout -->
+      <text x="120" y="72" fill="#5c5748" font-size="13" font-style="italic" font-family="'Noto Serif SC','Noto Serif',serif">α ≤ 0.4 三条指标停滞在低位；α ≥ 0.6 跳上平台后不再变化</text>
+
+      <!-- Legend -->
+      <line x1="80" y1="462" x2="960" y2="462" stroke="rgba(43,42,36,0.10)" stroke-width="0.8"/>
+      <text x="80" y="478" fill="#5c5748" font-size="8" font-family="'Geist Mono',monospace" letter-spacing="0.14em">LEGEND</text>
+      <line x1="80" y1="490" x2="104" y2="490" stroke="#d98e00" stroke-width="1.8"/>
+      <circle cx="92" cy="490" r="4" fill="#d98e00"/>
+      <text x="112" y="494" fill="#5c5748" font-size="12" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">recall@4（焦点）</text>
+      <line x1="256" y1="490" x2="280" y2="490" stroke="#7c8f6f" stroke-width="1.2"/>
+      <text x="288" y="494" fill="#5c5748" font-size="12" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">端到端 recall</text>
+      <line x1="416" y1="490" x2="440" y2="490" stroke="#5e7a9b" stroke-width="1.2"/>
+      <text x="448" y="494" fill="#5c5748" font-size="12" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">recall@1</text>
+      <text x="960" y="494" fill="#8a8371" font-size="9" text-anchor="end" font-family="'Geist Mono',monospace">heldout 26 items · --no-faq · ablation_alpha_heldout.json</text>
+    </svg>
+  </div>
+</body>
+</html>

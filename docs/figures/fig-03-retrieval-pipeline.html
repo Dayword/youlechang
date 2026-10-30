@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>混合检索与分数融合管线</title>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&family=Noto+Serif:ital@0;1&family=Noto+Sans+SC:wght@400;500;600&family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --color-paper:   #faf6ee;
+      --color-paper-2: #f1ebdd;
+      --color-ink:     #2b2a24;
+      --color-muted:   #5c5748;
+      --color-soft:    #8a8371;
+      --color-accent:  #d98e00;
+      --font-sans:     'Geist', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      --font-serif:    'Instrument Serif', 'Noto Serif SC', 'Noto Serif', serif;
+      --font-mono:     'Geist Mono', ui-monospace, monospace;
+    }
+    body {
+      font-family: var(--font-sans); background: var(--color-paper); color: var(--color-ink);
+      min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 3rem 2rem;
+    }
+    .frame { max-width: 1280px; width: 100%; }
+    .eyebrow { font-family: var(--font-mono); font-size: 0.66rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-muted); margin-bottom: 0.5rem; }
+    h1 { font-family: var(--font-serif); font-size: clamp(1.5rem, 2.4vw + 0.75rem, 2rem); font-weight: 400; letter-spacing: -0.02em; line-height: 1.15; color: var(--color-ink); margin-bottom: 1.5rem; }
+    svg { width: 100%; min-width: 900px; display: block; }
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <p class="eyebrow">Data Flow · 技术方案书 3.1.2</p>
+    <h1>混合检索与分数融合：双路召回，扇入融合，统一精排一次</h1>
+
+    <svg viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="fig03-rag-title fig03-rag-desc">
+      <title id="fig03-rag-title">混合检索与分数融合管线</title>
+      <desc id="fig03-rag-desc">用户问句经改写后并行走向量检索与 BM25 检索，两路候选归一化后按 α 加权融合，统一送 CrossEncoder 精排，经 FAQ 提分与阈值过滤后进入防幻觉生成。</desc>
+
+      <rect width="100%" height="100%" fill="#faf6ee"/>
+
+      <defs>
+        <marker id="arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#5c5748"/></marker>
+        <marker id="arrow-accent" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#d98e00"/></marker>
+      </defs>
+
+      <!-- ===== 箭头（先画） ===== -->
+      <!-- 问句→改写 -->
+      <line x1="168" y1="360" x2="228" y2="360" stroke="#5c5748" stroke-width="1" marker-end="url(#arrow)"/>
+      <!-- 改写→向量（上行肘形） -->
+      <path d="M 376 348 Q 384 340 392 340 L 440 340 Q 448 340 448 332 L 448 252 Q 448 244 456 244" fill="none" stroke="#5c5748" stroke-width="1" marker-end="url(#arrow)"/>
+      <!-- 改写→BM25（下行肘形） -->
+      <path d="M 376 372 Q 384 380 392 380 L 440 380 Q 448 380 448 388 L 448 500 Q 448 508 456 508" fill="none" stroke="#5c5748" stroke-width="1" marker-end="url(#arrow)"/>
+      <!-- 向量→融合（下行肘形） -->
+      <path d="M 616 220 Q 624 220 624 228 L 624 340 Q 624 348 632 348 L 692 348" fill="none" stroke="#5c5748" stroke-width="1" marker-end="url(#arrow)"/>
+      <!-- BM25→融合（上行肘形） -->
+      <path d="M 616 496 Q 624 496 624 488 L 624 380 Q 624 372 632 372 L 692 372" fill="none" stroke="#5c5748" stroke-width="1" marker-end="url(#arrow)"/>
+      <!-- 融合→精排（focal） -->
+      <line x1="864" y1="360" x2="932" y2="360" stroke="#d98e00" stroke-width="1.2" marker-end="url(#arrow-accent)"/>
+      <rect x="866" y="338" width="64" height="14" rx="2" fill="#faf6ee"/>
+      <text x="898" y="349" fill="#5c5748" font-size="12" font-weight="500" text-anchor="middle" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">去重</text>
+      <!-- 精排→生成（阈值标签） -->
+      <line x1="1092" y1="360" x2="1140" y2="360" stroke="#5c5748" stroke-width="1" marker-end="url(#arrow)"/>
+      <rect x="1096" y="332" width="44" height="14" rx="2" fill="#faf6ee"/>
+      <text x="1118" y="343" fill="#5c5748" font-size="8" font-family="'Geist Mono',monospace" text-anchor="middle">≥ 0.45</text>
+      <!-- FAQ 提分 → 精排（虚线可选） -->
+      <line x1="1012" y1="248" x2="1012" y2="324" stroke="rgba(43,42,36,0.35)" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#arrow)"/>
+      <rect x="1024" y="278" width="96" height="14" rx="2" fill="#faf6ee"/>
+      <text x="1072" y="289" fill="#8a8371" font-size="12" font-weight="500" text-anchor="middle" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">max 取大</text>
+
+      <!-- ===== 节点 ===== -->
+      <!-- 问句 -->
+      <rect x="64" y="328" width="104" height="64" rx="6" fill="rgba(92,87,72,0.10)" stroke="#8a8371" stroke-width="0.8"/>
+      <text x="116" y="355" fill="#2b2a24" font-size="12" font-weight="600" text-anchor="middle" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">用户问句</text>
+      <text x="116" y="373" fill="#8a8371" font-size="8" text-anchor="middle" font-family="'Geist Mono',monospace">query</text>
+
+      <!-- 查询改写 -->
+      <rect x="232" y="328" width="144" height="64" rx="6" fill="#ffffff" stroke="#2b2a24" stroke-width="1"/>
+      <text x="304" y="355" fill="#2b2a24" font-size="12" font-weight="600" text-anchor="middle" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">查询改写</text>
+      <text x="304" y="373" fill="#8a8371" font-size="8" text-anchor="middle" font-family="'Geist Mono',monospace">rewrite + normalize</text>
+
+      <!-- 向量检索 -->
+      <rect x="456" y="180" width="160" height="64" rx="6" fill="#ffffff" stroke="#2b2a24" stroke-width="1"/>
+      <text x="536" y="207" fill="#2b2a24" font-size="12" font-weight="600" text-anchor="middle" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">向量检索</text>
+      <text x="536" y="225" fill="#8a8371" font-size="8" text-anchor="middle" font-family="'Geist Mono',monospace">Milvus · BGE-M3 · cos</text>
+
+      <!-- BM25 检索 -->
+      <rect x="456" y="476" width="160" height="64" rx="6" fill="#ffffff" stroke="#2b2a24" stroke-width="1"/>
+      <text x="536" y="503" fill="#2b2a24" font-size="12" font-weight="600" text-anchor="middle" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">关键词检索</text>
+      <text x="536" y="521" fill="#8a8371" font-size="8" text-anchor="middle" font-family="'Geist Mono',monospace">rank_bm25 · jieba</text>
+
+      <!-- 融合（焦点） -->
+      <rect x="696" y="328" width="168" height="64" rx="6" fill="rgba(217,142,0,0.10)" stroke="#d98e00" stroke-width="1.2"/>
+      <text x="780" y="352" fill="#2b2a24" font-size="12" font-weight="600" text-anchor="middle" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">Min-Max 归一 · 加权融合</text>
+      <text x="780" y="373" fill="#8a8371" font-size="8" text-anchor="middle" font-family="'Geist Mono',monospace">a*s_vec + (1-a)*s_bm25</text>
+
+      <!-- 统一精排 -->
+      <rect x="936" y="328" width="152" height="64" rx="6" fill="#ffffff" stroke="#2b2a24" stroke-width="1"/>
+      <text x="1012" y="352" fill="#2b2a24" font-size="12" font-weight="600" text-anchor="middle" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">统一精排一次</text>
+      <text x="1012" y="373" fill="#8a8371" font-size="8" text-anchor="middle" font-family="'Geist Mono',monospace">CrossEncoder · 160 chars</text>
+
+      <!-- FAQ 提分（可选） -->
+      <rect x="936" y="192" width="152" height="56" rx="6" fill="rgba(43,42,36,0.02)" stroke="rgba(43,42,36,0.20)" stroke-width="1" stroke-dasharray="4,3"/>
+      <text x="1012" y="215" fill="#2b2a24" font-size="12" font-weight="600" text-anchor="middle" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">FAQ 问法提分</text>
+      <text x="1012" y="233" fill="#8a8371" font-size="8" text-anchor="middle" font-family="'Geist Mono',monospace">base 0.65 · ceil 1.0</text>
+
+      <!-- 防幻觉生成 -->
+      <rect x="1144" y="328" width="96" height="64" rx="6" fill="rgba(43,42,36,0.05)" stroke="#5c5748" stroke-width="0.8"/>
+      <text x="1192" y="355" fill="#2b2a24" font-size="12" font-weight="600" text-anchor="middle" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">防幻觉生成</text>
+      <text x="1192" y="373" fill="#8a8371" font-size="8" text-anchor="middle" font-family="'Geist Mono',monospace">verify agent</text>
+
+      <!-- 注释 callout -->
+      <line x1="1012" y1="404" x2="1012" y2="452" stroke="rgba(43,42,36,0.20)" stroke-width="0.8"/>
+      <text x="1012" y="474" fill="#5c5748" font-size="13" font-style="italic" text-anchor="middle" font-family="'Noto Serif SC','Noto Serif',serif">多路候选合并后只精排一次；生成时仍使用完整原文</text>
+
+      <!-- Legend -->
+      <line x1="64" y1="652" x2="1216" y2="652" stroke="rgba(43,42,36,0.10)" stroke-width="0.8"/>
+      <text x="64" y="672" fill="#5c5748" font-size="9" font-family="'Geist Mono',monospace" letter-spacing="0.14em">LEGEND</text>
+      <rect x="148" y="662" width="14" height="12" rx="2" fill="rgba(217,142,0,0.10)" stroke="#d98e00" stroke-width="1"/>
+      <text x="170" y="672" fill="#5c5748" font-size="12" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">融合焦点</text>
+      <rect x="252" y="662" width="14" height="12" rx="2" fill="#ffffff" stroke="#2b2a24" stroke-width="1"/>
+      <text x="274" y="672" fill="#5c5748" font-size="12" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">处理步骤</text>
+      <rect x="356" y="662" width="14" height="12" rx="2" fill="rgba(43,42,36,0.02)" stroke="rgba(43,42,36,0.20)" stroke-width="1" stroke-dasharray="3,2"/>
+      <text x="378" y="672" fill="#5c5748" font-size="12" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">可选提分层</text>
+      <line x1="478" y1="668" x2="502" y2="668" stroke="#5c5748" stroke-width="1" marker-end="url(#arrow)"/>
+      <text x="510" y="672" fill="#5c5748" font-size="12" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">候选流</text>
+      <line x1="582" y1="668" x2="606" y2="668" stroke="#d98e00" stroke-width="1.2" marker-end="url(#arrow-accent)"/>
+      <text x="614" y="672" fill="#5c5748" font-size="12" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">主链路</text>
+      <text x="1216" y="672" fill="#8a8371" font-size="9" text-anchor="end" font-family="'Geist Mono',monospace">a = HYBRID_ALPHA = 0.6</text>
+    </svg>
+  </div>
+</body>
+</html>

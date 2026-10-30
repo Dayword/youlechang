@@ -1,0 +1,54 @@
+# ---------- Web框架 ----------
+fastapi==0.115.0
+uvicorn==0.30.6
+python-multipart==0.0.12
+
+# ---------- LangChain 生态 ----------
+langchain==0.3.30
+langchain-core==0.3.86
+langchain-huggingface==0.1.0
+langchain-text-splitters==0.3.11
+langchain-openai==0.2.0
+openai==1.109.1
+tiktoken==0.13.0
+sentence-transformers==2.7.0
+transformers==4.45.2
+
+# ---------- 向量数据库（当前：FAISS 进程内索引，无需向量库服务） ----------
+faiss-cpu==1.10.0
+# pymilvus==2.4.5   # Milvus 回滚时取消注释（客户端库不占内存）
+
+# ---------- OCR（注意：当前环境 paddle 导入异常，小程序图片入口已隐藏；
+#            服务端导入失败时 /chat/vision 自动降级，不影响其他功能） ----------
+paddlepaddle==2.6.2
+paddleocr==2.8.1
+opencv-python==4.6.0.66
+
+# ---------- 检索增强 ----------
+rank_bm25==0.2.2
+
+# ---------- 二维码生成（会员码/提币码） ----------
+qrcode==8.2
+pillow==12.2.0
+
+# ---------- 模型下载 ----------
+modelscope==1.18.0
+
+# ---------- PyTorch（CPU版；CPU 版需用 pytorch 官方源安装，见部署说明）
+torch==2.13.0
+
+# ---------- 其他 ----------
+numpy==1.26.4
+redis==5.0.8
+jieba==0.42.1
+python-docx==1.1.0
+pymysql==1.1.1
+cryptography==49.0.0
+passlib==1.7.4
+# bcrypt 固定 4.0.1：passlib 1.7.4 不兼容 bcrypt>=4.1（超长密码抛异常），勿升级
+bcrypt==4.0.1
+requests==2.34.2
+certifi==2026.7.22
+python-jose==3.3.0
+python-dotenv==1.2.2
+pydantic==2.9.2

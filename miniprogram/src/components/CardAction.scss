@@ -1,0 +1,55 @@
+/* 办卡卡片样式 */
+.card-action {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 14px;
+  padding: 18px 20px;
+  background: linear-gradient(135deg, #fff4e5, #ffe8f0);
+  border: 1px solid #ffd9b8;
+  border-radius: 16px;
+}
+
+.card-action-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  overflow: hidden;
+}
+
+.card-action-name {
+  font-size: 26px;
+  font-weight: bold;
+  color: #b25b00;
+}
+
+.card-action-desc {
+  font-size: 22px;
+  color: #a9825f;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.card-action-price {
+  font-size: 30px;
+  font-weight: bold;
+  color: #ff6b1a;
+}
+
+.card-action-btn {
+  flex-shrink: 0;
+  padding: 14px 28px;
+  background: linear-gradient(135deg, #ff8c42, #ff6b9d);
+  border-radius: 999px;
+  color: #fff;
+  font-size: 24px;
+  font-weight: bold;
+  box-shadow: 0 4px 12px rgba(255, 107, 66, 0.35);
+}
+
+.card-action-btn.disabled {
+  background: #ccc;
+  box-shadow: none;
+}

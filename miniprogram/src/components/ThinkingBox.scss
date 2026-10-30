@@ -1,0 +1,66 @@
+/* 思考过程时间线样式 */
+.thinking-box {
+  margin-bottom: 16px;
+  background: #eef7ff;
+  border: 1px solid #d4ecff;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.thinking-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+}
+
+.thinking-title {
+  font-size: 22px;
+  font-weight: bold;
+  color: #2b8fe3;
+}
+
+.thinking-toggle {
+  margin-left: auto;
+  font-size: 22px;
+  color: #666;
+}
+
+.thinking-list {
+  max-height: 280px;
+  padding: 0 20px 16px;
+  box-sizing: border-box;
+}
+
+.thinking-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 4px 0;
+}
+
+.thinking-icon {
+  flex-shrink: 0;
+  font-size: 22px;
+  line-height: 1.6;
+}
+
+.thinking-text {
+  font-size: 22px;
+  color: #6b7a8f;
+  line-height: 1.5;
+  word-break: break-all;
+}
+
+.thinking-elapsed {
+  margin-left: 6px;
+  font-size: 18px;
+  color: #a8c7e8;
+}
+
+.thinking-ellipsis {
+  display: block;
+  padding: 4px 0;
+  font-size: 22px;
+  color: #6fc2ff;
+}

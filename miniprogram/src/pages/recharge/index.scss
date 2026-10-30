@@ -1,0 +1,537 @@
+/* 办卡充值页（暖黄乐园主题，与首页/我的页同一套设计语言） */
+.recharge-page {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  background: linear-gradient(180deg, #fff3d6 0%, #fff7e0 40%, #fffdf5 100%);
+  padding: 30px 30px calc(60px + env(safe-area-inset-bottom));
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------- 装饰层 ---------- */
+.deco {
+  position: absolute;
+  pointer-events: none;
+}
+
+.dot {
+  border-radius: 50%;
+}
+
+.dot.d1 {
+  left: 26px;
+  top: 560px;
+  width: 26px;
+  height: 26px;
+  background: #ffb14d;
+  opacity: 0.85;
+}
+
+.dot.d2 {
+  right: 44px;
+  top: 500px;
+  width: 16px;
+  height: 16px;
+  background: #ffd34e;
+  opacity: 0.9;
+}
+
+.dot.d3 {
+  right: 22px;
+  bottom: 360px;
+  width: 30px;
+  height: 30px;
+  background: #ff9a3d;
+  opacity: 0.5;
+}
+
+.dot.d4 {
+  left: 20px;
+  bottom: 300px;
+  width: 14px;
+  height: 14px;
+  background: #ffd34e;
+  opacity: 0.85;
+}
+
+.dot.d5 {
+  right: 90px;
+  bottom: 240px;
+  width: 12px;
+  height: 12px;
+  background: #ff8c42;
+  opacity: 0.55;
+}
+
+.cloud {
+  position: absolute;
+  pointer-events: none;
+}
+
+.cloud.c1 {
+  right: -14px;
+  top: 210px;
+  font-size: 64px;
+  opacity: 0.9;
+}
+
+.cloud.c2 {
+  left: -10px;
+  bottom: 220px;
+  font-size: 52px;
+  opacity: 0.75;
+}
+
+/* 摩天轮水印 / 气球（填充中部留白，低饱和） */
+.wheel-mark {
+  left: 18px;
+  bottom: 150px;
+  font-size: 110px;
+  opacity: 0.18;
+  transform: rotate(-10deg);
+}
+
+.balloon-mark {
+  right: 60px;
+  bottom: 180px;
+  font-size: 46px;
+  opacity: 0.7;
+  transform: rotate(10deg);
+}
+
+/* 底部黄色软丘（低饱和，衬在内容后面） */
+.hill {
+  border-radius: 50%;
+}
+
+.hill.h1 {
+  left: -20%;
+  bottom: -300px;
+  width: 150%;
+  height: 520px;
+  background: #ffe9a8;
+  opacity: 0.5;
+}
+
+.hill.h2 {
+  right: -30%;
+  bottom: -340px;
+  width: 130%;
+  height: 480px;
+  background: #ffdf7e;
+  opacity: 0.4;
+}
+
+/* ---------- 三角旗装饰（左右两组，微旋转模拟垂挂弧线） ---------- */
+.bunting {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0 26px;
+  position: relative;
+  z-index: 1;
+}
+
+.flag-group {
+  display: flex;
+  gap: 14px;
+}
+
+.flag-group.lg-l {
+  transform: rotate(7deg);
+}
+
+.flag-group.lg-r {
+  transform: rotate(-7deg);
+}
+
+.flag {
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-top: 28px solid #ffb14d;
+}
+
+.flag.f1 { border-top-color: #ffd98e; }
+.flag.f2 { border-top-color: #ff8c42; }
+
+/* ---------- 顶部用户条 ---------- */
+.top-bar {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: rgba(255, 253, 248, 0.9);
+  border: 1px solid rgba(255, 233, 207, 0.9);
+  border-radius: 28px;
+  padding: 20px 24px;
+  box-shadow: 0 8px 22px rgba(214, 142, 20, 0.1);
+}
+
+.avatar {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  background: linear-gradient(160deg, #f3ede2, #e7ddc8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+/* 用户头像（与 AI 问答页 / 我的页同源：上传后三端同步） */
+.avatar-img {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+}
+
+.avatar-icon {
+  font-size: 50px;
+  opacity: 0.5;
+}
+
+.user-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 34px;
+  font-weight: bold;
+  color: #4a3f2c;
+}
+
+/* 余币余额胶囊（橙金渐变，数字白字 + 金币） */
+.balance {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 24px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #ffd98e, #ffb14d);
+  box-shadow: 0 6px 16px rgba(255, 154, 61, 0.35);
+  flex-shrink: 0;
+}
+
+.balance-num {
+  font-size: 40px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.balance-coin {
+  font-size: 36px;
+}
+
+/* ---------- 会员码主卡（在剩余空间内垂直水平居中） ---------- */
+.qr-center {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+  padding: 10px 0;
+}
+
+.qr-card {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  background: #fff;
+  border-radius: 40px;
+  padding: 44px 40px 36px;
+  box-sizing: border-box;
+  box-shadow: 0 14px 34px rgba(214, 142, 20, 0.14);
+}
+
+.qr-title {
+  font-size: 34px;
+  font-weight: bold;
+  color: #333;
+}
+
+.qr-sub {
+  font-size: 23px;
+  color: #8a7355;
+}
+
+.qr-placeholder {
+  width: 330px;
+  height: 330px;
+  border: 4px dashed #ffe0b8;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: #fffdf5;
+}
+
+/* 会员码二维码图（后端生成 PNG base64） */
+.qr-img {
+  width: 330px;
+  height: 330px;
+  border-radius: 12px;
+}
+
+/* 会员码生成失败态：原因 + 重试 + 文本会员码兜底 */
+.qr-failed { border-style: solid; border-color: #ffd9d9; background: #fffafa; }
+
+.qr-err {
+  font-size: 19px;
+  color: #d2695b;
+  max-width: 300px;
+  text-align: center;
+  line-height: 1.4;
+}
+
+.qr-retry {
+  margin-top: 6px;
+  padding: 8px 26px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #ffd166, #ff9a3d);
+}
+
+.qr-retry-text { font-size: 22px; color: #fff; font-weight: bold; }
+
+.qr-text-code {
+  margin-top: 8px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: #fff8ee;
+  border: 1px dashed #ffd9a8;
+  max-width: 300px;
+}
+
+.qr-text-label { font-size: 18px; color: #a08a5f; }
+
+.qr-text-value {
+  font-size: 20px;
+  color: #6b5a3e;
+  word-break: break-all;
+  line-height: 1.4;
+}
+
+.qr-note {
+  font-size: 20px;
+  color: #a08a5f;
+}
+
+.qr-emoji {
+  font-size: 90px;
+}
+
+.qr-hint {
+  font-size: 22px;
+  color: #a08a5f;
+}
+
+/* ---------- 底部区：立即充值 + 注释（固定页底） ---------- */
+.bottom-area {
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+}
+
+.recharge-btn {
+  position: relative;
+  z-index: 1;
+  background: linear-gradient(135deg, #ffd24d, #ff8c42);
+  border-radius: 999px;
+  padding: 30px 0;
+  text-align: center;
+  box-shadow: 0 10px 26px rgba(255, 140, 66, 0.35);
+}
+
+.recharge-btn-hover {
+  opacity: 0.85;
+  transform: scale(0.98);
+}
+
+.recharge-btn-text {
+  font-size: 34px;
+  font-weight: bold;
+  color: #7a4a00;
+}
+
+.page-footer {
+  position: relative;
+  z-index: 1;
+  margin-top: 26px;
+  text-align: center;
+}
+
+.footer-text {
+  font-size: 20px;
+  color: #b9a97f;
+}
+
+/* ---------- 充值档位弹层（配色与暖黄主题统一） ---------- */
+.sheet-mask {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: flex-end;
+}
+
+.sheet {
+  width: 100%;
+  background: #fff;
+  border-radius: 32px 32px 0 0;
+  padding: 36px 32px calc(30px + env(safe-area-inset-bottom));
+  box-sizing: border-box;
+  animation: sheetUp 0.25s ease-out;
+}
+
+@keyframes sheetUp {
+  from {
+    transform: translateY(40%);
+    opacity: 0.5;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.sheet-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+}
+
+.sheet-title {
+  font-size: 32px;
+  font-weight: bold;
+  color: #4a3f2c;
+}
+
+.sheet-close {
+  font-size: 44px;
+  color: #b9a97f;
+  padding: 0 12px;
+  line-height: 1;
+}
+
+/* 档位每行独立 flex 均分（不用 calc 百分比，兼容所有安卓 WebView） */
+.tier-row {
+  display: flex;
+  gap: 22px;
+  margin-bottom: 22px;
+}
+
+.tier-row:last-child {
+  margin-bottom: 0;
+}
+
+.tier {
+  flex: 1;
+  min-width: 0;
+  box-sizing: border-box;
+  border: 2px solid #ffd9a8;
+  border-radius: 20px;
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  background: #fffdf5;
+  overflow: hidden;
+}
+
+/* 奇数档位时末行占位，保持左右对齐 */
+.tier-ghost {
+  flex: 1;
+  min-width: 0;
+  visibility: hidden;
+}
+
+.tier-hover {
+  background: #fff7e0;
+  border-color: #ffb14d;
+}
+
+.tier-done {
+  border-color: #cfe8d2;
+  background: #f4faf4;
+}
+
+.tier-name {
+  font-size: 32px;
+  font-weight: bold;
+  color: #d98b00;
+}
+
+.tier-done .tier-name {
+  color: #2f9e4f;
+}
+
+.tier-price {
+  font-size: 24px;
+  color: #a08a5f;
+}
+
+.sheet-empty {
+  display: block;
+  text-align: center;
+  font-size: 24px;
+  color: #666;
+  padding: 40px 0;
+}
+
+/* 离线提示：后端未连接时兜底档位说明 */
+.sheet-warn {
+  display: block;
+  margin-top: 22px;
+  text-align: center;
+  font-size: 21px;
+  color: #c47f00;
+  background: #fff7e6;
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+
+.sheet-tip {
+  display: block;
+  margin-top: 24px;
+  text-align: center;
+  font-size: 21px;
+  color: #a08a5f;
+}
+
+.sheet-cancel {
+  margin-top: 22px;
+  background: #f5f1e6 !important;
+  color: #8a7355 !important;
+  border-radius: 999px !important;
+  font-size: 27px !important;
+  border: none !important;
+}
+
+
+/* 生效卡提示（会员码按它出码） */
+.qr-active-card {
+  background: #fff7e0;
+  border: 1px solid #ffe0b8;
+  border-radius: 999px;
+  padding: 10px 26px;
+}
+
+.qr-active-text {
+  font-size: 21px;
+  color: #b25b00;
+  font-weight: bold;
+}

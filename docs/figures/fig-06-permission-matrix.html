@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>三角色权限矩阵</title>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&family=Noto+Serif:ital@0;1&family=Noto+Sans+SC:wght@400;500;600&family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --color-paper:   #faf6ee;
+      --color-paper-2: #f1ebdd;
+      --color-ink:     #2b2a24;
+      --color-muted:   #5c5748;
+      --color-soft:    #8a8371;
+      --color-accent:  #d98e00;
+      --font-sans:     'Geist', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      --font-serif:    'Instrument Serif', 'Noto Serif SC', 'Noto Serif', serif;
+      --font-mono:     'Geist Mono', ui-monospace, monospace;
+    }
+    body {
+      font-family: var(--font-sans); background: var(--color-paper); color: var(--color-ink);
+      min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 3rem 2rem;
+    }
+    .frame { max-width: 1200px; width: 100%; }
+    .eyebrow { font-family: var(--font-mono); font-size: 0.66rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-muted); margin-bottom: 0.5rem; }
+    h1 { font-family: var(--font-serif); font-size: clamp(1.5rem, 2.4vw + 0.75rem, 2rem); font-weight: 400; letter-spacing: -0.02em; line-height: 1.15; color: var(--color-ink); margin-bottom: 1.5rem; }
+    svg { width: 100%; min-width: 900px; display: block; }
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <p class="eyebrow">Security Matrix · 技术方案书 2.3 创新点 3</p>
+    <h1>三角色权限矩阵：降权在后端硬拦，而非前端不调用</h1>
+
+    <svg viewBox="0 0 756 440" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="fig06-matrix-title fig06-matrix-desc">
+      <title id="fig06-matrix-title">管理员、员工、游客三角色权限矩阵</title>
+      <desc id="fig06-matrix-desc">六个能力域在三种角色下的权限对照；员工令牌对高危写操作被后端第二道闸直接拒绝，是全图的安全主张。</desc>
+
+      <rect width="100%" height="100%" fill="#faf6ee"/>
+
+      <!-- Header row y=72 h=52 -->
+      <rect x="12" y="72" width="208" height="52" rx="6" fill="#ffffff" stroke="rgba(43,42,36,0.12)" stroke-width="0.8"/>
+      <text x="116" y="94" fill="#2b2a24" font-size="12" font-weight="600" text-anchor="middle" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">能力域</text>
+      <text x="116" y="112" fill="#5c5748" font-size="9" text-anchor="middle" font-family="'Geist Mono',monospace">vs. role</text>
+
+      <rect x="232" y="72" width="148" height="52" rx="6" fill="#2b2a24"/>
+      <text x="306" y="92" fill="#ffffff" font-size="12" font-weight="600" text-anchor="middle" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">管理员</text>
+      <text x="306" y="110" fill="rgba(255,255,255,0.85)" font-size="9" text-anchor="middle" font-family="'Geist Mono',monospace">scope=admin</text>
+
+      <rect x="396" y="72" width="148" height="52" rx="6" fill="#2b2a24"/>
+      <text x="470" y="92" fill="#ffffff" font-size="12" font-weight="600" text-anchor="middle" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">员工</text>
+      <text x="470" y="110" fill="rgba(255,255,255,0.85)" font-size="9" text-anchor="middle" font-family="'Geist Mono',monospace">scope=staff · 12h</text>
+
+      <rect x="560" y="72" width="148" height="52" rx="6" fill="#2b2a24"/>
+      <text x="634" y="92" fill="#ffffff" font-size="12" font-weight="600" text-anchor="middle" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">游客</text>
+      <text x="634" y="110" fill="rgba(255,255,255,0.85)" font-size="9" text-anchor="middle" font-family="'Geist Mono',monospace">user token</text>
+
+      <!-- Row 0 y=140 智能体工具挂载 -->
+      <rect x="12" y="140" width="208" height="36" rx="4" fill="#ffffff" stroke="rgba(43,42,36,0.12)" stroke-width="0.8"/>
+      <text x="24" y="163" fill="#2b2a24" font-size="12" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">智能体工具挂载</text>
+      <text x="208" y="163" fill="#5c5748" font-size="9" text-anchor="end" font-family="'Geist Mono',monospace">tools</text>
+      <rect x="232" y="140" width="148" height="36" rx="4" fill="rgba(43,42,36,0.08)" stroke="rgba(43,42,36,0.12)" stroke-width="0.6"/>
+      <text x="306" y="163" fill="#2b2a24" font-size="12" font-weight="600" text-anchor="middle" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">36 个</text>
+      <rect x="396" y="140" width="148" height="36" rx="4" fill="#ffffff" stroke="rgba(43,42,36,0.12)" stroke-width="0.6"/>
+      <text x="470" y="163" fill="#2b2a24" font-size="12" font-weight="600" text-anchor="middle" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">17 个只读</text>
+      <rect x="560" y="140" width="148" height="36" rx="4" fill="rgba(92,87,72,0.08)" stroke="rgba(43,42,36,0.12)" stroke-width="0.6"/>
+      <text x="634" y="163" fill="#5c5748" font-size="12" text-anchor="middle" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">本人工具</text>
+
+      <!-- Row 1 y=180 只读查询 R -->
+      <rect x="12" y="180" width="208" height="36" rx="4" fill="#ffffff" stroke="rgba(43,42,36,0.12)" stroke-width="0.8"/>
+      <text x="24" y="203" fill="#2b2a24" font-size="12" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">只读查询</text>
+      <text x="208" y="203" fill="#5c5748" font-size="9" text-anchor="end" font-family="'Geist Mono',monospace">R</text>
+      <rect x="232" y="180" width="148" height="36" rx="4" fill="rgba(43,42,36,0.08)" stroke="rgba(43,42,36,0.12)" stroke-width="0.6"/>
+      <text x="306" y="203" fill="#2b2a24" font-size="12" font-weight="600" text-anchor="middle" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">全部</text>
+      <rect x="396" y="180" width="148" height="36" rx="4" fill="#ffffff" stroke="rgba(43,42,36,0.12)" stroke-width="0.6"/>
+      <text x="470" y="203" fill="#2b2a24" font-size="12" font-weight="600" text-anchor="middle" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">R / W</text>
+      <rect x="560" y="180" width="148" height="36" rx="4" fill="rgba(92,87,72,0.08)" stroke="rgba(43,42,36,0.12)" stroke-width="0.6"/>
+      <text x="634" y="203" fill="#5c5748" font-size="12" text-anchor="middle" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">仅本人数据</text>
+
+      <!-- Row 2 y=220 常规写 W -->
+      <rect x="12" y="220" width="208" height="36" rx="4" fill="#ffffff" stroke="rgba(43,42,36,0.12)" stroke-width="0.8"/>
+      <text x="24" y="243" fill="#2b2a24" font-size="12" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">常规写（下单 / 报失）</text>
+      <text x="208" y="243" fill="#5c5748" font-size="9" text-anchor="end" font-family="'Geist Mono',monospace">W</text>
+      <rect x="232" y="220" width="148" height="36" rx="4" fill="rgba(43,42,36,0.08)" stroke="rgba(43,42,36,0.12)" stroke-width="0.6"/>
+      <text x="306" y="243" fill="#2b2a24" font-size="12" font-weight="600" text-anchor="middle" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">全部</text>
+      <rect x="396" y="220" width="148" height="36" rx="4" fill="rgba(92,87,72,0.08)" stroke="rgba(43,42,36,0.12)" stroke-width="0.6"/>
+      <text x="470" y="243" fill="#5c5748" font-size="12" text-anchor="middle" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">核销 / 退款</text>
+      <rect x="560" y="220" width="148" height="36" rx="4" fill="rgba(92,87,72,0.08)" stroke="rgba(43,42,36,0.12)" stroke-width="0.6"/>
+      <text x="634" y="243" fill="#5c5748" font-size="12" text-anchor="middle" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">仅本人</text>
+
+      <!-- Row 3 y=260 高危写 X（焦点行） -->
+      <rect x="12" y="260" width="208" height="36" rx="4" fill="#ffffff" stroke="rgba(43,42,36,0.12)" stroke-width="0.8"/>
+      <text x="24" y="283" fill="#2b2a24" font-size="12" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">高危写（改价 / 删库）</text>
+      <text x="208" y="283" fill="#5c5748" font-size="9" text-anchor="end" font-family="'Geist Mono',monospace">X</text>
+      <rect x="232" y="260" width="148" height="36" rx="4" fill="rgba(43,42,36,0.08)" stroke="rgba(43,42,36,0.12)" stroke-width="0.6"/>
+      <text x="306" y="283" fill="#2b2a24" font-size="12" font-weight="600" text-anchor="middle" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">确认卡后执行</text>
+      <rect x="396" y="260" width="148" height="36" rx="4" fill="rgba(217,142,0,0.07)" stroke="#d98e00" stroke-width="1.4"/>
+      <text x="470" y="276" fill="#d98e00" font-size="12" font-weight="600" text-anchor="middle" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">403 后端硬拦</text>
+      <text x="470" y="290" fill="#d98e00" font-size="8" fill-opacity="0.85" text-anchor="middle" font-family="'Geist Mono',monospace">2nd gate: get_current_admin</text>
+      <rect x="560" y="260" width="148" height="36" rx="4" fill="#faf6ee" stroke="rgba(43,42,36,0.12)" stroke-width="0.6"/>
+      <text x="634" y="283" fill="#8a8371" font-size="12" text-anchor="middle" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">无权限</text>
+
+      <!-- Row 4 y=300 管理接口 -->
+      <rect x="12" y="300" width="208" height="36" rx="4" fill="#ffffff" stroke="rgba(43,42,36,0.12)" stroke-width="0.8"/>
+      <text x="24" y="323" fill="#2b2a24" font-size="12" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">管理接口</text>
+      <text x="208" y="323" fill="#5c5748" font-size="9" text-anchor="end" font-family="'Geist Mono',monospace">admin api</text>
+      <rect x="232" y="300" width="148" height="36" rx="4" fill="rgba(43,42,36,0.08)" stroke="rgba(43,42,36,0.12)" stroke-width="0.6"/>
+      <text x="306" y="323" fill="#2b2a24" font-size="12" font-weight="600" text-anchor="middle" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">全部 36 工具</text>
+      <rect x="396" y="300" width="148" height="36" rx="4" fill="rgba(92,87,72,0.08)" stroke="rgba(43,42,36,0.12)" stroke-width="0.6"/>
+      <text x="470" y="323" fill="#5c5748" font-size="12" text-anchor="middle" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">白名单 18 条</text>
+      <rect x="560" y="300" width="148" height="36" rx="4" fill="#faf6ee" stroke="rgba(43,42,36,0.12)" stroke-width="0.6"/>
+      <text x="634" y="323" fill="#8a8371" font-size="12" text-anchor="middle" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">无权限</text>
+
+      <!-- Row 5 y=340 本人资产 -->
+      <rect x="12" y="340" width="208" height="36" rx="4" fill="#ffffff" stroke="rgba(43,42,36,0.12)" stroke-width="0.8"/>
+      <text x="24" y="363" fill="#2b2a24" font-size="12" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">游园券 / 订单</text>
+      <text x="208" y="363" fill="#5c5748" font-size="9" text-anchor="end" font-family="'Geist Mono',monospace">passes</text>
+      <rect x="232" y="340" width="148" height="36" rx="4" fill="rgba(43,42,36,0.08)" stroke="rgba(43,42,36,0.12)" stroke-width="0.6"/>
+      <text x="306" y="363" fill="#2b2a24" font-size="12" font-weight="600" text-anchor="middle" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">全部</text>
+      <rect x="396" y="340" width="148" height="36" rx="4" fill="#ffffff" stroke="rgba(43,42,36,0.12)" stroke-width="0.6"/>
+      <text x="470" y="363" fill="#2b2a24" font-size="12" font-weight="600" text-anchor="middle" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">核销 / 按券退款</text>
+      <rect x="560" y="340" width="148" height="36" rx="4" fill="rgba(92,87,72,0.08)" stroke="rgba(43,42,36,0.12)" stroke-width="0.6"/>
+      <text x="634" y="363" fill="#5c5748" font-size="12" text-anchor="middle" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">仅本人未核销</text>
+
+      <!-- Legend -->
+      <line x1="12" y1="396" x2="744" y2="396" stroke="rgba(43,42,36,0.10)" stroke-width="0.8"/>
+      <text x="12" y="416" fill="#5c5748" font-size="9" font-family="'Geist Mono',monospace" letter-spacing="0.14em">LEGEND</text>
+      <rect x="96" y="406" width="14" height="12" rx="2" fill="rgba(43,42,36,0.08)" stroke="rgba(43,42,36,0.12)" stroke-width="0.6"/>
+      <text x="118" y="416" fill="#5c5748" font-size="12" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">完全能力</text>
+      <rect x="206" y="406" width="14" height="12" rx="2" fill="#ffffff" stroke="rgba(43,42,36,0.12)" stroke-width="0.6"/>
+      <text x="228" y="416" fill="#5c5748" font-size="12" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">受限能力</text>
+      <rect x="316" y="406" width="14" height="12" rx="2" fill="rgba(92,87,72,0.08)" stroke="rgba(43,42,36,0.12)" stroke-width="0.6"/>
+      <text x="338" y="416" fill="#5c5748" font-size="12" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">只读 / 部分</text>
+      <rect x="440" y="406" width="14" height="12" rx="2" fill="#faf6ee" stroke="rgba(43,42,36,0.12)" stroke-width="0.6"/>
+      <text x="462" y="416" fill="#5c5748" font-size="12" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">无权限</text>
+      <rect x="548" y="406" width="14" height="12" rx="2" fill="rgba(217,142,0,0.07)" stroke="#d98e00" stroke-width="1.2"/>
+      <text x="570" y="416" fill="#5c5748" font-size="12" font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">安全主张</text>
+    </svg>
+  </div>
+</body>
+</html>

@@ -1,0 +1,92 @@
+/* 轻量 Markdown 渲染样式（配色沿用 PC 端 mdComponents） */
+.markdown-view {
+  font-size: 26px;
+  color: #444;
+  line-height: 1.6;
+}
+
+.md-p {
+  margin-bottom: 14px;
+}
+
+.md-p:last-child {
+  margin-bottom: 0;
+}
+
+.md-h1,
+.md-h2,
+.md-h3 {
+  display: block;
+  font-weight: bold;
+  color: #333;
+  margin: 14px 0 10px;
+}
+
+.md-h1 {
+  font-size: 30px;
+}
+
+.md-h2 {
+  font-size: 29px;
+}
+
+.md-h3 {
+  font-size: 27px;
+}
+
+.md-ul,
+.md-ol {
+  margin: 8px 0 14px 8px;
+}
+
+.md-li {
+  display: flex;
+  gap: 4px;
+  padding: 4px 0;
+}
+
+.md-li-marker {
+  color: #ff8c42;
+  flex-shrink: 0;
+  font-size: 26px;
+}
+
+.md-li-body {
+  flex: 1;
+}
+
+.md-strong {
+  font-weight: bold;
+  color: #ff6b1a;
+}
+
+.md-code {
+  font-size: 22px;
+  color: #e0447c;
+  background: #f3f4f6;
+  border-radius: 6px;
+  padding: 2px 8px;
+}
+
+.md-text {
+  font-size: 26px;
+}
+
+/* Markdown 图片（AI 回答里的地图静态图/图表；点击放大） */
+.md-img-wrap {
+  margin: 12px 0 14px;
+}
+
+.md-img {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid #f0e4d2;
+}
+
+.md-img-caption {
+  display: block;
+  margin-top: 6px;
+  font-size: 20px;
+  color: #9aa7b8;
+  text-align: center;
+}

@@ -1,0 +1,54 @@
+{
+  "dshSkillsDir": "~/.dsh/skills",
+  "installerNote": "DSH 技能规范：<skillsDir>/<name>/SKILL.md，frontmatter 必须含 name(kebab-case) 与 description。layout=root 直接作为单技能；layout=auto 根有 SKILL.md 则单技能，否则安装其顶层每个含 SKILL.md 的子目录为独立技能。",
+  "entries": [
+    {
+      "name": "context-compression",
+      "zh": "上下文压缩",
+      "status": "ready",
+      "source": "github",
+      "repo": "https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering",
+      "branch": "main",
+      "layout": "path",
+      "subPath": "skills/context-compression"
+    },
+    {
+      "name": "context-optimization",
+      "zh": "上下文优化",
+      "status": "ready",
+      "source": "github",
+      "repo": "https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering",
+      "branch": "main",
+      "layout": "path",
+      "subPath": "skills/context-optimization"
+    },
+    {
+      "name": "filesystem-context",
+      "zh": "文件系统上下文",
+      "status": "ready",
+      "source": "github",
+      "repo": "https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering",
+      "branch": "main",
+      "layout": "path",
+      "subPath": "skills/filesystem-context"
+    },
+    {
+      "name": "recon",
+      "zh": "代码侦察（deploysquad-ai/recon；自动发现其中的 micro/western 等子技能）",
+      "status": "ready",
+      "source": "github",
+      "repo": "https://github.com/deploysquad-ai/recon",
+      "branch": "main",
+      "layout": "auto"
+    },
+    {
+      "name": "skill-optimizer",
+      "zh": "技能优化器（huang-hf/skill-optimizer）",
+      "status": "ready",
+      "source": "github",
+      "repo": "https://github.com/huang-hf/skill-optimizer",
+      "branch": "main",
+      "layout": "root"
+    }
+  ]
+}

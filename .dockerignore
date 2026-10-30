@@ -1,0 +1,52 @@
+# ============================================================
+# .dockerignore —— 决定哪些文件**不进**构建上下文 / 镜像层
+#
+# 为什么必须有这个文件：
+#   Dockerfile 里是 `COPY . .`，而项目根目录同时装着「运行时数据」和「开发杂物」。
+#   没有本文件时，实测有 1057 MB 会被打进构建上下文（node_modules 803MB +
+#   volumes 199MB + .venv 38MB + .git 11MB），并且 **.env 里的真实 API Key
+#   会被 COPY 进镜像层**（镜像一旦分享出去，密钥即泄漏，且删层也删不掉历史层）。
+# ============================================================
+
+# ---------- ① 密钥：只走运行时注入（compose 的 env_file），绝不进镜像 ----------
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# ---------- ② 本地数据卷与运行时挂载目录（由 compose 绑定挂载，不进镜像）----------
+volumes/
+logs/
+models_cache/
+
+# ---------- ③ 依赖与构建产物 ----------
+**/node_modules/
+**/dist/
+**/build/
+__pycache__/
+**/__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+env/
+
+# ---------- ④ 版本控制 / 编辑器 / 工具缓存 ----------
+.git/
+.gitignore
+.dockerignore
+.dockerignore.bak*
+.workbuddy/
+.preview/
+.pytest_cache/
+.vscode/
+.idea/
+
+# ---------- ⑤ 非运行时产物 ----------
+参赛材料/
+output/
+_kb_dup_cleanup_backup_*/
+
+# ---------- ⑥ 根目录本地临时产物（_xxx.out / _xxx.py / _xxx.json 等调试文件）----------
+_*.*
+*_backup_*

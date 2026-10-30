@@ -1,0 +1,399 @@
+/* 登录门页（暖黄乐园主题，与首页同一套设计语言） */
+.login-page {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: 60px 40px calc(50px + env(safe-area-inset-bottom));
+  background: linear-gradient(180deg, #fff3d6 0%, #fff7e0 45%, #fffdf5 100%);
+  display: flex;
+  flex-direction: column;
+}
+
+/* 装饰 */
+.bunting {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 10px;
+}
+
+.flag {
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-top: 28px solid #ffb14d;
+}
+
+.flag.f1 {
+  border-top-color: #ffd98e;
+}
+
+.flag.f2 {
+  border-top-color: #ff8c42;
+}
+
+.deco {
+  position: absolute;
+  pointer-events: none;
+}
+
+.deco.cloud {
+  right: -12px;
+  top: 180px;
+  font-size: 60px;
+  opacity: 0.9;
+}
+
+.deco.wheel {
+  left: -16px;
+  bottom: 120px;
+  font-size: 130px;
+  opacity: 0.16;
+  transform: rotate(-10deg);
+}
+
+/* 欢迎区 */
+.login-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 40px 0 44px;
+}
+
+.login-duck {
+  font-size: 130px;
+  line-height: 1.1;
+}
+
+.login-title {
+  font-size: 42px;
+  font-weight: bold;
+  color: #c8862a;
+}
+
+.login-sub {
+  font-size: 23px;
+  color: #8a7355;
+}
+
+/* 登录卡 */
+.login-card {
+  background: #fff;
+  border: 1px solid #ffe9cf;
+  border-radius: 28px;
+  padding: 36px 32px;
+  box-shadow: 0 12px 30px rgba(214, 142, 20, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.login-card-title {
+  font-size: 32px;
+  font-weight: bold;
+  color: #4a3f2c;
+}
+
+.login-card-sub {
+  font-size: 22px;
+  color: #8a7355;
+  margin-top: -8px;
+}
+
+.login-btn-main {
+  background: linear-gradient(135deg, #ffd24d, #ff8c42) !important;
+  color: #7a4a00 !important;
+  border-radius: 999px !important;
+  font-size: 30px !important;
+  font-weight: bold !important;
+  border: none !important;
+  box-shadow: 0 8px 20px rgba(255, 140, 66, 0.3);
+}
+
+.login-btn-outline {
+  background: #fff !important;
+  color: #d98b00 !important;
+  border: 2px solid #ffd9a8 !important;
+  border-radius: 999px !important;
+  font-size: 28px !important;
+  font-weight: bold !important;
+}
+
+.login-divider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.divider-line {
+  flex: 1;
+  height: 1px;
+  background: #f0e6d2;
+}
+
+.divider-text {
+  font-size: 20px;
+  color: #b9a97f;
+}
+
+.login-alt {
+  text-align: center;
+  font-size: 23px;
+  color: #d98b00;
+  font-weight: bold;
+  padding: 6px 0;
+}
+
+/* 表单（输入框显式高度，规避小程序 input 内容层裁切） */
+.form-label {
+  font-size: 24px;
+  font-weight: bold;
+  color: #6b5b3f;
+  margin-bottom: -4px;
+}
+
+.form-input {
+  width: 100%;
+  height: 88px;
+  box-sizing: border-box;
+  background: #f9f5ea;
+  border: 1px solid #ffe9cf;
+  border-radius: 14px;
+  padding: 0 20px;
+  font-size: 25px;
+  color: #333;
+}
+
+/* 密码输入（带"显示/隐藏"切换） */
+.pwd-row {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+
+.pwd-input {
+  flex: 1;
+  min-width: 0;
+}
+
+.pwd-eye {
+  flex-shrink: 0;
+  padding: 0 24px;
+  height: 88px;
+  line-height: 88px;
+  background: #f9f5ea;
+  border: 1px solid #ffe9cf;
+  border-radius: 14px;
+  font-size: 23px;
+  font-weight: bold;
+  color: #d98b00;
+  text-align: center;
+}
+
+/* 验证码（用于"忘记密码 / 合并账号"兜底，不是登录方式） */
+.code-row {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+
+.code-input {
+  flex: 1;
+  min-width: 0;
+}
+
+.code-btn {
+  flex-shrink: 0;
+  padding: 0 24px;
+  height: 88px;
+  line-height: 88px;
+  background: linear-gradient(135deg, #ffd98e, #ffb14d);
+  border-radius: 14px;
+  font-size: 23px;
+  font-weight: bold;
+  color: #7a4a00;
+  text-align: center;
+}
+
+.code-btn-disabled {
+  opacity: 0.55;
+}
+
+/* 手机号已被其他账号绑定的提示（验证后可合并） */
+.conflict-tip {
+  background: #fff6e6;
+  border: 1px solid #ffe0b0;
+  border-radius: 14px;
+  padding: 18px 20px;
+}
+
+.conflict-tip-text {
+  font-size: 21px;
+  color: #9a6b1f;
+  line-height: 1.55;
+}
+
+/* 记住这个账号 */
+.remember-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 4px 0;
+}
+
+.checkbox {
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  border: 2px solid #ffd9a8;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.checkbox-on {
+  background: linear-gradient(135deg, #ffd24d, #ff8c42);
+  border-color: #ffb14d;
+}
+
+.checkbox-mark {
+  font-size: 22px;
+  font-weight: bold;
+  color: #7a4a00;
+  line-height: 1;
+}
+
+.remember-text {
+  font-size: 22px;
+  color: #8a7355;
+}
+
+/* 历史账号（点一下头像即登录） */
+.acct-scroll {
+  max-height: 420px;
+}
+
+.acct-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+}
+
+.acct-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  background: #fffaf0;
+  border: 1px solid #ffe9cf;
+  border-radius: 18px;
+  padding: 16px 20px;
+}
+
+.acct-avatar {
+  width: 76px;
+  height: 76px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #fff2d8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.acct-avatar-emoji {
+  font-size: 40px;
+  line-height: 76px;
+  text-align: center;
+}
+
+.acct-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.acct-name {
+  font-size: 27px;
+  font-weight: bold;
+  color: #4a3f2c;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.acct-phone {
+  font-size: 21px;
+  color: #a5916f;
+}
+
+.acct-badge {
+  flex-shrink: 0;
+  padding: 8px 18px;
+  border-radius: 999px;
+  background: #f2ebdb;
+}
+
+.acct-badge-fast {
+  background: linear-gradient(135deg, #ffe3a3, #ffc069);
+}
+
+.acct-badge-text {
+  font-size: 20px;
+  font-weight: bold;
+  color: #7a4a00;
+}
+
+.acct-del {
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+  line-height: 52px;
+  text-align: center;
+  border-radius: 50%;
+  font-size: 24px;
+  color: #b9a97f;
+  background: #f7f2e6;
+}
+
+.login-alt-inline {
+  font-size: 22px;
+  color: #d98b00;
+  font-weight: bold;
+}
+
+.login-links {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 0;
+}
+
+.login-foot-note {
+  text-align: center;
+  font-size: 20px;
+  color: #b9a97f;
+}
+
+.login-foot {
+  margin-top: auto;
+  text-align: center;
+  font-size: 20px;
+  color: #b9a97f;
+  padding-top: 40px;
+}
+
+/* 通用按压态 */
+.press {
+  opacity: 0.85;
+  transform: scale(0.98);
+}

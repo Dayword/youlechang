@@ -1,0 +1,149 @@
+# ====================================================================
+#  .gitignore  —  游乐场智能 RAG 问答系统
+#  原则：密钥/凭据、本地运行时数据、构建产物、调试残留一律不入库
+# ====================================================================
+
+# ---------------------- 密钥 / 凭据（绝对不上传）---------------------
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.jks
+*secret*.json
+*credential*.json
+
+# ---------------------- Python ---------------------------------------
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# ---------------------- Node / 前端构建产物 ---------------------------
+node_modules/
+**/node_modules/
+dist/
+**/dist/
+build/
+**/build/
+*.tsbuildinfo
+.*.swc/
+.swc/
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ---------------------- 本地运行时数据 / 数据库 -----------------------
+volumes/
+logs/
+**/logs/
+*.log
+database/users.db
+*.sqlite
+*.sqlite3
+chat_history/
+index/*.pkl
+*.pkl
+*.pt
+*.bin
+
+# --------------- 运行时用户上传内容（含真实用户头像/失物照片）---------
+static/avatars/
+static/lost_found/
+static/uploads/
+static/qrcode/
+static/favorites/
+
+# ------- 调试残留：_* 探针脚本 / 输出 / 日志 / 截图（根目录 + scripts/）---
+#   规则：默认全部排除，下方逐个放行需要保留的文件
+#   2026-09-23 起探针归档到 scripts/，规则同步覆盖两层
+/_*.py
+/_*.out
+/_*.log
+/_*.json
+/_*.txt
+/_*.png
+/_*.html
+/_*_backup_*/
+/scripts/_*.py
+/scripts/_*.out
+/scripts/_*.log
+/scripts/_*.json
+/scripts/_*.txt
+/scripts/_*.png
+/scripts/_*.html
+/scripts/_*_backup_*/
+#   放行：回归验收脚本（去掉 /_* 前缀后重新纳入）
+!/_verify_*.py
+!/scripts/_verify_*.py
+#   放行：业务文档纯文本
+!/_thesis_dump.txt
+!/_rules_dump.txt
+!/scripts/_thesis_dump.txt
+!/scripts/_rules_dump.txt
+#   再排除：以下脚本含真实用户手机号 / 密钥赋值，任何情况下不入库
+/_verify_phone_conflict.py
+/_verify_account_identity.py
+/scripts/_verify_phone_conflict.py
+/scripts/_verify_account_identity.py
+/scripts/_probe_combo_planning.py
+/scripts/_probe_profile_latency.py
+/scripts/_sample_profile_qa.py
+/scripts/_dbg_rag_profile.py
+/scripts/_mp_login_probe.py
+/scripts/_fill_wx_env.py
+/scripts/_verify_account_identity.py
+
+# --------------- 一次性迁移脚本的备份产物（含真实用户手机号/消费记录）---
+scripts_backup/
+
+# ---------------------- 本地状态 / 工具目录 ---------------------------
+.workbuddy/
+.zcode/
+.preview/
+.vite/
+*.genie
+
+# ---------------------- 安全审计报告（含漏洞清单，不上传）------------
+安全与业务逻辑风险审计报告.md
+
+# ---------------------- 小程序私有配置 -------------------------------
+miniprogram/project.private.config.json
+
+# ---------------------- 参赛材料（含软著材料/演示视频/佐证，不上传）------
+参赛材料/
+参赛材料*.zip
+
+# ---------------------- OS / 编辑器 ----------------------------------
+.DS_Store
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+Desktop.ini
+~$*
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# —— 公平性红线：以下路径含学校名 / 真实姓名 / 指导教师，禁止进入公开仓库 ——
+# （文件保留在本地磁盘，仅不纳入版本库；对应已匿名化版本在 参赛材料/ 下）
+/docs/毕业答辩-改进版.pptx
+/output/商业计划书（完整稿）.docx
+/output/商业计划书（美化版）.docx
+/output/4d35cdf4-4d11-4cd2-a2c2-b5046ab1d107/
+/output/58254dcb-75e9-4f71-a7a7-ee5bcdc0bb21/
+/output/91c20bed-2455-4893-8d3b-9ed627d29d62/
+/output/d2b111c9-bf81-4e5d-a2ae-fb58c2d6090e/
+/output/ee9edea2-fc9c-4e3d-8edb-1eda6b238612/
+
+# 临时下载/抓取目录
+_tmp_*/

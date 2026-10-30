@@ -1,0 +1,1325 @@
+.mine-page {
+  min-height: 100vh;
+  padding: 30px 24px calc(40px + env(safe-area-inset-bottom));
+  box-sizing: border-box;
+  background: linear-gradient(180deg, #fff3d6 0%, #fff7e0 40%, #fffdf5 100%);
+}
+
+/* 数据加载中 / 加载失败（失败可点击重试） */
+.data-tip {
+  margin-bottom: 20px;
+  padding: 16px 22px;
+  border-radius: 16px;
+  background: #fff8e6;
+  border: 2px solid #ffe0b2;
+  font-size: 24px;
+  color: #a8792f;
+  text-align: center;
+}
+
+.data-tip-error {
+  background: #fff1f0;
+  border-color: #ffccc7;
+  color: #cf3a2e;
+}
+
+.profile-card {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 36px 30px;
+  border: 2px solid #ffd9a8;
+  margin-bottom: 36px;
+}
+
+.profile-avatar {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ffe066, #ff9a3d);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 54px;
+  flex-shrink: 0;
+}
+
+.profile-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  overflow: hidden;
+}
+
+.profile-nickname {
+  font-size: 34px;
+  font-weight: bold;
+  color: #333;
+}
+
+.profile-sub {
+  font-size: 22px;
+  color: #8a6f45;
+}
+
+.refresh-btn {
+  background: #ff8c42 !important;
+  color: #fff !important;
+  border: none !important;
+  font-size: 22px !important;
+}
+
+.section {
+  margin-bottom: 36px;
+}
+
+.section-title {
+  display: block;
+  font-size: 28px;
+  font-weight: bold;
+  color: #6b5b3f;
+  margin-bottom: 18px;
+}
+
+.empty-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 44px 30px;
+  border: 1px dashed #ffd9a8;
+}
+
+.empty-emoji {
+  font-size: 70px;
+}
+
+.empty-text {
+  font-size: 24px;
+  color: #7a6a4a;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.card-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 26px 28px;
+  margin-bottom: 18px;
+}
+
+.card-item-left {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.card-item-name {
+  font-size: 28px;
+  font-weight: bold;
+  color: #b25b00;
+}
+
+.card-item-no {
+  font-size: 20px;
+  color: #8a7a5a;
+}
+
+.card-item-status {
+  font-size: 22px;
+  font-weight: bold;
+  color: #16a34a;
+}
+
+.about-box {
+  padding: 26px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.about-line {
+  font-size: 23px;
+  color: #6b5b3f;
+  line-height: 1.6;
+}
+
+/* 卡片区标题行（标题 + 充值入口） */
+.section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.section-action {
+  font-size: 24px;
+  font-weight: bold;
+  color: #e8112d;
+  padding: 8px 20px;
+  background: rgba(232, 17, 45, 0.08);
+  border-radius: 999px;
+}
+
+/* 通用点击态（卡片按压反馈） */
+.card-hover {
+  opacity: 0.82;
+  transform: scale(0.98);
+}
+
+/* 收藏列表的按压反馈要跟 hoverClass 的瞬切配一条短过渡，不然是按"弹"一下，
+   有过渡才像被按下去（.card-hover / .press 只负责终点态） */
+.fav-row-main,
+.fav-row-btn,
+.fav-btn {
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+/* ---------- 钱包 + 签到（两列，钱包卡与首页 AI问答 主卡同款渐变） ---------- */
+.wallet-row {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 36px;
+}
+
+.wallet {
+  flex: 1;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 30px 24px;
+  background: linear-gradient(165deg, #fff9e3 0%, #ffe9ae 55%, #ffd98e 100%);
+  border: none;
+  border-radius: 24px;
+  box-shadow: 0 8px 22px rgba(214, 142, 20, 0.16);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  overflow: hidden;
+}
+
+.wallet-coin-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.wallet-emoji {
+  font-size: 44px;
+}
+
+.wallet-num {
+  font-size: 56px;
+  font-weight: bold;
+  color: #9a6400;
+}
+
+.wallet-label {
+  font-size: 24px;
+  color: #a67c2e;
+}
+
+/* 充值入口：白色胶囊（与首页主卡按钮同款） */
+.wallet-action {
+  align-self: flex-start;
+  margin-top: 6px;
+  padding: 8px 24px;
+  background: #fff;
+  border-radius: 999px;
+  font-size: 22px;
+  font-weight: bold;
+  color: #d98b00;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.checkin {
+  flex: 1;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 30px 24px;
+  border: 1px solid #ffe9cf;
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  overflow: hidden;
+}
+
+.checkin-signed {
+  background: #f2fbf4;
+  border-color: #bfe8c8;
+}
+
+.checkin-emoji {
+  font-size: 44px;
+}
+
+/* 签到按压小弹跳动效 */
+.checkin-bounce {
+  animation: checkinBounce 0.5s ease;
+}
+
+@keyframes checkinBounce {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.25) rotate(-8deg); }
+  70% { transform: scale(0.92); }
+  100% { transform: scale(1); }
+}
+
+.checkin-label {
+  font-size: 28px;
+  font-weight: bold;
+  color: #c46a00;
+}
+
+.checkin-signed .checkin-label {
+  color: #2f9e4f;
+}
+
+.checkin-sub {
+  font-size: 20px;
+  color: #8a7355;
+}
+
+/* ---------- 快捷提问宫格（2x2 白瓦片，与首页 8 宫格同款；分行 flex 均分） ---------- */
+.quick-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.quick-row {
+  display: flex;
+  gap: 14px;
+}
+
+.quick-item {
+  flex: 1;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 26px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  background: #fff;
+  border: 1px solid #ffe9cf;
+  border-radius: 20px;
+  box-shadow: 0 4px 14px rgba(255, 140, 66, 0.08);
+}
+
+.quick-item-hover {
+  background: rgba(255, 140, 66, 0.1);
+}
+
+.quick-icon {
+  font-size: 46px;
+}
+
+.quick-text {
+  font-size: 24px;
+  color: #6b5b3f;
+  font-weight: bold;
+}
+
+/* ---------- 联系服务 ---------- */
+.contact-box {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 24px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 24px 0;
+}
+
+.contact-item + .contact-item {
+  border-top: 1px solid #f5ead2;
+}
+
+.contact-icon {
+  font-size: 40px;
+  flex-shrink: 0;
+}
+
+.contact-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.contact-name {
+  font-size: 27px;
+  font-weight: bold;
+  color: #4a3f2c;
+}
+
+.contact-desc {
+  font-size: 21px;
+  color: #8a7355;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.contact-arrow {
+  font-size: 40px;
+  color: #d9c9a3;
+  flex-shrink: 0;
+}
+
+/* ================= 个人信息弹窗 ================= */
+.pm-mask {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pm-card {
+  width: 84%;
+  max-width: 640px;
+  max-height: 80vh;
+  background: #fffdf8;
+  border-radius: 28px;
+  padding: 30px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
+}
+
+.pm-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  flex-shrink: 0;
+}
+
+.pm-title {
+  font-size: 32px;
+  font-weight: bold;
+  color: #6b5b3f;
+}
+
+.pm-close {
+  font-size: 34px;
+  color: #c4b48c;
+  padding: 0 10px;
+}
+
+.pm-body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.pm-card-sub {
+  font-size: 22px;
+  color: #8a7355;
+}
+
+/* 头像（微信 chooseAvatar） */
+.pm-avatar-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.pm-avatar-btn {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  padding: 0 !important;
+  border-radius: 50% !important;
+  background: linear-gradient(135deg, #ffe066, #ff9a3d) !important;
+  border: none !important;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pm-avatar-img {
+  width: 150px;
+  height: 150px;
+}
+
+.pm-avatar-emoji {
+  font-size: 70px;
+}
+
+.pm-avatar-tip {
+  font-size: 20px;
+  color: #a08a5f;
+}
+
+.pm-label {
+  font-size: 24px;
+  font-weight: bold;
+  color: #6b5b3f;
+  margin-bottom: -6px;
+}
+
+.pm-input {
+  width: 100%;
+  height: 88px;
+  box-sizing: border-box;
+  background: #f9f5ea;
+  border: 1px solid #ffe9cf;
+  border-radius: 14px;
+  padding: 0 20px;
+  font-size: 25px;
+  color: #333;
+}
+
+/* 换绑手机号遇到"号码已被别的账号占用"时的验证码块 */
+.pm-conflict-tip {
+  background: #fff5e6;
+  border: 1px solid #ffd9a3;
+  border-radius: 14px;
+  padding: 16px 20px;
+}
+
+.pm-conflict-text {
+  font-size: 21px;
+  color: #b06a00;
+  line-height: 1.55;
+}
+
+.pm-code-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.pm-code-input {
+  flex: 1;
+}
+
+.pm-code-btn {
+  flex-shrink: 0;
+  height: 88px;
+  padding: 0 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff3dd;
+  border: 1px solid #ffd9a3;
+  border-radius: 14px;
+  font-size: 23px;
+  font-weight: bold;
+  color: #d98b00;
+  white-space: nowrap;
+}
+
+.pm-code-btn-off {
+  opacity: 0.5;
+}
+
+.pm-phone-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f9f5ea;
+  border: 1px solid #ffe9cf;
+  border-radius: 14px;
+  padding: 20px;
+}
+
+.pm-phone {
+  font-size: 26px;
+  color: #4a3f2c;
+  font-weight: bold;
+}
+
+.pm-rebind-btn {
+  padding: 8px 24px;
+  background: linear-gradient(135deg, #ffd98e, #ffb14d);
+  border-radius: 999px;
+  font-size: 22px;
+  font-weight: bold;
+  color: #7a4a00;
+}
+
+/* 换绑/密码表单补充说明 */
+.pm-tip-note {
+  font-size: 20px;
+  color: #b9a97f;
+  line-height: 1.5;
+}
+
+.pm-save {
+  background: linear-gradient(135deg, #ffd24d, #ff8c42) !important;
+  color: #7a4a00 !important;
+  border-radius: 999px !important;
+  font-size: 28px !important;
+  font-weight: bold !important;
+  border: none !important;
+  box-shadow: 0 8px 20px rgba(255, 140, 66, 0.3);
+  margin-top: 6px;
+}
+
+.pm-alt {
+  text-align: center;
+  font-size: 22px;
+  color: #d98b00;
+  font-weight: bold;
+  padding: 4px 0;
+}
+
+/* 头像图（顶部资料卡也展示服务器头像，与问答页/充值页同源） */
+.profile-avatar-img {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+}
+
+.profile-avatar-emoji { font-size: 56px; }
+
+/* ---------- 我的卡 / 我的收藏：与钱包卡同尺寸的入口大卡 ---------- */
+.entry-cards {
+  background: linear-gradient(165deg, #eef6ff 0%, #d9ebff 55%, #c2ddfb 100%);
+  box-shadow: 0 8px 22px rgba(56, 132, 214, 0.16);
+}
+
+.entry-cards .wallet-num { color: #1f5fa8; }
+.entry-cards .wallet-label { color: #4a7bb0; }
+.entry-cards .wallet-action { color: #1f77c9; }
+
+.entry-fav {
+  background: linear-gradient(165deg, #fff6e8 0%, #ffe7c7 55%, #ffd8a6 100%);
+  box-shadow: 0 8px 22px rgba(214, 122, 20, 0.16);
+}
+
+.entry-fav .wallet-num { color: #a35c00; }
+.entry-fav .wallet-label { color: #b07a2e; }
+.entry-fav .wallet-action { color: #d97b00; }
+
+/* 我的卡弹窗顶部操作条 */
+.cards-modal-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.cards-modal-summary { font-size: 22px; color: #9aa7b8; }
+
+/* ---------- 我的收藏（弹窗）：搜索 + 卡片层级 + 胶囊操作 ---------- */
+.fav-modal {
+  width: 90%;
+  max-height: 80vh;
+}
+
+.fav-head-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-shrink: 0;
+}
+
+.fav-clear {
+  font-size: 22px;
+  color: #c4b48c;
+  border: 1px solid #ecdfc6;
+  border-radius: 999px;
+  padding: 4px 18px;
+}
+
+.fav-search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #fdfaf4;
+  border: 1px solid #f0e4d2;
+  border-radius: 16px;
+  padding: 10px 20px;
+  margin-bottom: 16px;
+  flex-shrink: 0;
+}
+
+.fav-search-input {
+  flex: 1;
+  min-width: 0;
+  font-size: 24px;
+  color: #6b5b3f;
+}
+
+.fav-search-clear {
+  font-size: 26px;
+  color: #c4b48c;
+  padding: 0 4px;
+}
+
+.fav-modal-list {
+  flex: 1;
+  min-height: 0;
+  max-height: 58vh;
+  padding: 0 4px;
+  box-sizing: border-box;
+}
+
+/* 列表视图 / 详情视图：都撑满 .pm-card（它本身是 flex column），各自内部再滚动 */
+.fav-list-view,
+.fav-detail {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------- 一行一条 ---------- */
+/* 外层只管「删除时左滑 + 高度收拢」的过渡；内层只管入场动画。
+   两者必须分元素挂：同一个元素既 animation(fill:both) 又 transition 同属性时，
+   微信 WebView 里 animation 的终值会压住 transition，表现成「点了删除不动」。 */
+.fav-row {
+  max-height: 320px;
+  overflow: hidden;
+  margin-bottom: 14px;
+  border-radius: 20px;
+  background: #fffdf8;
+  border: 1px solid #f2e8d7;
+  transition: max-height 0.28s ease, margin 0.28s ease,
+    opacity 0.28s ease, transform 0.28s ease;
+}
+
+.fav-row-out {
+  opacity: 0;
+  transform: translateX(-110%);
+  max-height: 0;
+  margin-bottom: 0;
+  border-width: 0;
+}
+
+.fav-row-in {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 22px 24px;
+  animation: favRowIn 0.26s ease-out both;
+}
+
+/* 入场只做位移，**不做透明度**。
+   原因：起始态写 `opacity: 0` + `fill: both`，一旦渲染环境不推进 CSS 动画
+   （预览面板/离屏渲染/某些 WebView 首次合成），整行会永久停在起始态 ——
+   内容"看不见但占位"，用户按位置去点按钮自然"点不动"。
+   只改位移的话，冻结最多偏 10px，永远不会隐形。 */
+@keyframes favRowIn {
+  from {
+    transform: translateY(10px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* 入场错峰：用类名而不用内联 style —— 小程序端 style 对象的序列化路径不保证，
+   类名一定生效。最多错 8 档，再多就用同一档，免得列表长了要等半天才出来。 */
+.fav-d0 { animation-delay: 0ms; }
+.fav-d1 { animation-delay: 40ms; }
+.fav-d2 { animation-delay: 80ms; }
+.fav-d3 { animation-delay: 120ms; }
+.fav-d4 { animation-delay: 160ms; }
+.fav-d5 { animation-delay: 200ms; }
+.fav-d6 { animation-delay: 240ms; }
+.fav-d7 { animation-delay: 280ms; }
+.fav-d8 { animation-delay: 320ms; }
+
+.fav-row-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.fav-row-text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* 问句一行，超出省略号（父级是 flex 容器，子项被块化，ellipsis 才生效） */
+.fav-row-q {
+  font-size: 25px;
+  font-weight: bold;
+  color: #4a3f2c;
+  line-height: 1.4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 回答摘要两行截断（-webkit-line-clamp 在 WebView 可用，max-height 兜底） */
+.fav-row-a {
+  font-size: 22px;
+  color: #8a7a63;
+  line-height: 1.5;
+  word-break: break-all;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  max-height: 66px;
+}
+
+/* 徽标 + 时间（flex 行：徽标要块化才有胶囊形状，直接塞进 Text 是行内元素，padding 不撑开） */
+.fav-row-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.fav-row-meta-txt {
+  flex: 1;
+  min-width: 0;
+  font-size: 19px;
+  color: #b0a795;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.fav-row-thumb-wrap {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.fav-row-thumb {
+  width: 80px;
+  height: 80px;
+  border-radius: 12px;
+  border: 1px solid #f0e4d2;
+  background: #faf7f2;
+}
+
+/* 多图时右下角缀一个 +N */
+.fav-row-more {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  font-size: 18px;
+  color: #fffdf8;
+  background: rgba(74, 63, 44, 0.66);
+  border-top-left-radius: 10px;
+  border-bottom-right-radius: 11px;
+  padding: 1px 8px;
+  line-height: 1.5;
+}
+
+/* 竖排：横排两个按钮要 180px 宽，正文列会被压得只剩三成宽，读不成句 */
+.fav-row-btns {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+}
+
+.fav-row-btn {
+  font-size: 22px;
+  color: #8a7a63;
+  background: #fdfaf4;
+  border: 1px solid #e8dcc6;
+  border-radius: 999px;
+  padding: 8px 16px;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.fav-row-btn-del {
+  color: #8a7a63;
+  background: #fdfaf4;
+  border-color: #e8dcc6;
+}
+
+/* ---------- 列表/详情共用 ---------- */
+.fav-badge {
+  flex-shrink: 0;
+  font-size: 19px;
+  color: #a4783f;
+  background: #faeeda;
+  border-radius: 8px;
+  padding: 3px 10px;
+  line-height: 1.5;
+}
+
+.fav-time {
+  flex-shrink: 0;
+  font-size: 19px;
+  color: #b0a795;
+  padding-top: 4px;
+}
+
+.fav-thumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.fav-thumb {
+  width: 160px;
+  height: 160px;
+  border-radius: 14px;
+  border: 1px solid #f0e4d2;
+  background: #faf7f2;
+}
+
+.fav-actions-spacer {
+  flex: 1;
+}
+
+.fav-btn {
+  font-size: 22px;
+  color: #8a7a63;
+  background: #fdfaf4;
+  border: 1px solid #e8dcc6;
+  border-radius: 999px;
+  /* 比原来 8px 22px 稍大一点：这批按钮的命中区就是 padding box，宁可多给几像素 */
+  padding: 10px 24px;
+  line-height: 1.4;
+}
+
+.fav-btn-back {
+  color: #a4783f;
+  background: #faeeda;
+  border-color: #ecd9b6;
+}
+
+/* ---------- 详情视图 ---------- */
+/* 三件：① 撑成 flex 列，让下面 .fav-detail-scroll 的 flex:1/min-height:0 真正生效
+   （之前 .fav-detail 不是 flex，那两行是死代码）；② 动效不挂在这一层 ——
+   带 transform 的容器会给整棵子树建立层叠上下文，而这一层包着 5 个可点元素，
+   动效移到内部的 .fav-detail-body 上，可点元素就落在"无 transform 祖先"下。 */
+.fav-detail {
+  display: flex;
+  flex-direction: column;
+}
+
+/* 入场动效的实际承载层（只包内容，不含任何按钮） */
+.fav-detail-body {
+  animation: favDetailIn 0.24s ease-out;
+}
+
+/* 详情入场同理：只右移，不淡入 —— 见 favRowIn 上方的说明 */
+@keyframes favDetailIn {
+  from {
+    transform: translateX(26px);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.fav-detail-head {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.fav-back {
+  flex-shrink: 0;
+  font-size: 24px;
+  color: #a4783f;
+  /* 命中区＝padding box，多给几像素竖向留白，点偏一点也点得到 */
+  padding: 6px 14px 6px 0;
+}
+
+.fav-detail-tags {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.fav-detail-scroll {
+  flex: 1;
+  min-height: 0;
+  max-height: 58vh;
+  padding: 0 4px;
+  box-sizing: border-box;
+}
+
+.fav-detail-q {
+  display: block;
+  font-size: 30px;
+  font-weight: bold;
+  color: #4a3f2c;
+  line-height: 1.5;
+  word-break: break-all;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #f2e8d7;
+  margin-bottom: 16px;
+}
+
+.fav-detail-answer {
+  margin-top: 14px;
+}
+
+.fav-detail-bar {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid #f2e8d7;
+}
+
+/* 收藏弹窗底部说明（原来用了 .cons-modal-tip 但全页没有定义，补上） */
+.cons-modal-tip {
+  flex-shrink: 0;
+  display: block;
+  font-size: 22px;
+  color: #b0a795;
+  text-align: center;
+  padding-top: 14px;
+}
+
+/* 通用按压态 */
+.press {
+  opacity: 0.85;
+  transform: scale(0.98);
+}
+
+
+/* 资料卡右侧箭头（替代刷新按钮，指示可点开个人信息） */
+.profile-arrow {
+  font-size: 44px;
+  color: #d9c9a3;
+  flex-shrink: 0;
+  padding-left: 10px;
+}
+
+/* 卡片行操作区（使用 / 退卡） */
+.card-item-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.card-op-btn {
+  padding: 6px 20px;
+  border-radius: 999px;
+  font-size: 21px;
+  font-weight: bold;
+}
+
+.card-op-use {
+  background: linear-gradient(135deg, #ffd98e, #ffb14d);
+  color: #7a4a00;
+}
+
+.card-op-refund {
+  background: #fff;
+  border: 1px solid #ffd9a8;
+  color: #c47f00;
+}
+
+/* 退卡弹窗 */
+.rf-card {
+  width: 88%;
+}
+
+.rf-card-name {
+  font-size: 30px;
+  font-weight: bold;
+  color: #b25b00;
+}
+
+.rf-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 4px;
+  border-bottom: 1px solid #f5ead2;
+}
+
+.rf-label {
+  font-size: 24px;
+  color: #6b5b3f;
+}
+
+.rf-value {
+  font-size: 26px;
+  font-weight: bold;
+  color: #4a3f2c;
+}
+
+.rf-value.rf-money {
+  color: #e8112d;
+  font-size: 30px;
+}
+
+.rf-refund-sec {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.rf-tip {
+  font-size: 20px;
+  color: #a08a5f;
+  line-height: 1.6;
+  background: #fff7e0;
+  border-radius: 12px;
+  padding: 14px 18px;
+}
+
+.rf-confirm {
+  margin-top: 4px;
+}
+
+.rf-block {
+  background: #fff3ec;
+  border: 1px solid #ffd9b8;
+  border-radius: 16px;
+  padding: 20px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.rf-block-text {
+  font-size: 23px;
+  color: #c47f00;
+  line-height: 1.6;
+}
+
+/* ---------- 退出登录按钮（资料卡右侧，未登录态显示「登 录」） ---------- */
+.profile-login-btn {
+  flex-shrink: 0;
+  padding: 12px 28px;
+  background: linear-gradient(135deg, #ffd24d, #ff8c42);
+  border-radius: 999px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #7a4a00;
+  box-shadow: 0 6px 16px rgba(255, 140, 66, 0.3);
+}
+
+/* 未登录且有历史账号：一键登录 + 切换账号 */
+.profile-switch {
+  flex-shrink: 0;
+  font-size: 21px;
+  color: #c47f00;
+  padding-left: 4px;
+}
+
+/* ---------- 消费记录（我的页全部账单） ---------- */
+.card-item-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+/* 消费记录的 .cons-* 系列样式已随弹窗一起搬到 pages/passes/index.scss */
+
+
+.pm-logout {
+  background: #fff !important;
+  color: #e8112d !important;
+  border: 1px solid #ffd0d0 !important;
+  border-radius: 999px !important;
+  font-size: 26px !important;
+  font-weight: bold !important;
+  margin-top: 4px;
+}
+
+
+/* ============ 改版：签到胶囊 / 消费记录 / 排行 / 折叠 / 消费弹窗 ============ */
+
+/* 个人信息栏右侧：签到胶囊 + 箭头 */
+.profile-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.checkin-pill {
+  background: linear-gradient(90deg, #ffd93d, #ffc24b);
+  border-radius: 999px;
+  padding: 6px 16px;
+}
+
+.checkin-pill-signed {
+  background: #e8f5e9;
+}
+
+.checkin-pill-text {
+  font-size: 20px;
+  font-weight: bold;
+  color: #7a5b00;
+}
+
+.checkin-pill-signed .checkin-pill-text {
+  color: #2e7d32;
+}
+
+/* 消费记录按钮（与钱包同尺寸的第二个大卡片） */
+.consume-card {
+  background: linear-gradient(160deg, #ffffff 55%, #eaf4ff 100%);
+}
+
+.consume-emoji {
+  font-size: 42px;
+}
+
+.consume-count {
+  font-size: 56px;
+  font-weight: bold;
+  color: #2b8fe3;
+  margin-left: 8px;
+}
+
+/* 项目游玩次数排行 */
+.period-tabs {
+  display: flex;
+  gap: 8px;
+}
+
+.period-tab {
+  font-size: 20px;
+  color: #8a97a8;
+  background: #f1f5f9;
+  border-radius: 999px;
+  padding: 4px 14px;
+}
+
+.period-tab-active {
+  background: #2b8fe3;
+  color: #ffffff;
+}
+
+.rank-tip {
+  font-size: 22px;
+  color: #9aa7b8;
+  padding: 20px;
+}
+
+.rank-list {
+  padding: 6px 18px 18px;
+}
+
+.rank-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+}
+
+.rank-name {
+  width: 176rpx;
+  flex-shrink: 0;
+  font-size: 22px;
+  color: #2f3a4a;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.rank-track {
+  flex: 1;
+  height: 22px;
+  background: #f0f4f8;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.rank-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #6fc2ff, #2b8fe3);
+}
+
+.rank-val {
+  flex-shrink: 0;
+  font-size: 20px;
+  color: #5b6b7c;
+}
+
+/* 我的卡折叠头 */
+.cards-head-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cards-summary {
+  font-size: 20px;
+  color: #9aa7b8;
+}
+
+/* ---------- 我的卡抽屉：会员充值 / 小额充值 记录分区 ---------- */
+.cards-tabs {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.cards-tab {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px 0 10px;
+  border-radius: 14px;
+  background: #f6f2ea;
+  border: 2px solid transparent;
+}
+
+.cards-tab-active {
+  background: #fff5e0;
+  border-color: #ffc46b;
+}
+
+.cards-tab-text {
+  font-size: 24px;
+  font-weight: bold;
+  color: #7a4a12;
+}
+
+.cards-tab-sub {
+  font-size: 17px;
+  color: #b08a5a;
+  margin-top: 3px;
+}
+
+.small-flag {
+  font-size: 19px;
+  color: #b98a2e;
+  background: #fff4d6;
+  border: 1px solid #ffd98f;
+  border-radius: 999px;
+  padding: 6px 14px;
+}

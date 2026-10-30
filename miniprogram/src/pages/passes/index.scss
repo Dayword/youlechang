@@ -1,0 +1,423 @@
+/* 我的游园码页（暖黄乐园主题，与首页/充值页同一套设计语言） */
+.passes-page {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #fff3d6 0%, #fff7e0 40%, #fffdf5 100%);
+  padding: 24px 30px calc(60px + env(safe-area-inset-bottom));
+  box-sizing: border-box;
+}
+
+.passes-head {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 22px;
+}
+
+.passes-title {
+  font-size: 40px;
+  font-weight: 800;
+  color: #7a4a12;
+}
+
+.passes-sub {
+  font-size: 24px;
+  color: #a8845a;
+}
+
+.passes-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 90px 0;
+  font-size: 28px;
+  color: #b08c62;
+}
+
+.passes-empty-hint {
+  font-size: 24px;
+  color: #c4a680;
+}
+
+/* ---------- 顶部大字卡：当前要玩的那一张 ---------- */
+.pass-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  background: #fffdf8;
+  border: 2px solid #ffd98e;
+  border-radius: 28px;
+  padding: 30px 24px 26px;
+  margin-bottom: 26px;
+  box-shadow: 0 6px 20px rgba(255, 177, 77, 0.15);
+}
+
+.pass-hero-label {
+  font-size: 24px;
+  color: #a8845a;
+}
+
+.pass-hero-name {
+  font-size: 34px;
+  font-weight: 700;
+  color: #5c3a0c;
+}
+
+.pass-hero-code {
+  font-size: 56px;
+  font-weight: 800;
+  letter-spacing: 8px;
+  color: #ff8c42;
+  padding: 6px 0;
+}
+
+.pass-hero-qr {
+  width: 300px;
+  height: 300px;
+  border-radius: 16px;
+  background: #fff;
+}
+
+.pass-hero-qr-plain {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff8e8;
+  border: 1px dashed #ffd98e;
+}
+
+.pass-hero-qr-tip {
+  font-size: 24px;
+  color: #b08c62;
+  padding: 0 30px;
+  text-align: center;
+  line-height: 1.6;
+}
+
+.pass-hero-tip {
+  font-size: 24px;
+  color: #a8845a;
+}
+
+.pass-hero-done {
+  border-color: #e8e0d0;
+  box-shadow: none;
+}
+
+/* ---------- 待玩 / 已玩 / 已退 分区 ---------- */
+.pass-group {
+  background: rgba(255, 253, 248, 0.92);
+  border: 1px solid rgba(255, 233, 207, 0.9);
+  border-radius: 24px;
+  padding: 20px 24px;
+  margin-bottom: 20px;
+}
+
+.pass-group-title {
+  display: block;
+  font-size: 24px;
+  font-weight: 600;
+  color: #a8845a;
+  margin-bottom: 8px;
+}
+
+.pass-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 0;
+  border-bottom: 1px solid rgba(255, 233, 207, 0.7);
+}
+
+.pass-row:last-child {
+  border-bottom: none;
+}
+
+.pass-row-on {
+  background: #fff5e0;
+  border-radius: 16px;
+  padding-left: 14px;
+  padding-right: 14px;
+}
+
+.pass-row-dim {
+  opacity: 0.55;
+}
+
+.pass-row-main {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.pass-row-name {
+  font-size: 28px;
+  color: #5c3a0c;
+}
+
+.pass-row-sub {
+  font-size: 22px;
+  color: #b08c62;
+}
+
+.pass-row-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.pass-row-code {
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: #ff8c42;
+}
+
+/* ---------- 自助退券（只有未核销的券才有这个入口） ---------- */
+.pass-row-refund {
+  font-size: 22px;
+  font-weight: 600;
+  color: #e8112d;
+  border: 1px solid #ffcaca;
+  background: #fff5f5;
+  border-radius: 999px;
+  padding: 6px 20px;
+}
+
+.pass-row-refund-off {
+  color: #c4a680;
+  border-color: #ffe9cf;
+  background: #fffaf0;
+}
+
+.pass-row-refund-tip {
+  font-size: 20px;
+  color: #c4a680;
+}
+
+.pass-hero-refund {
+  margin-top: 6px;
+  padding: 12px 34px;
+  border-radius: 999px;
+  border: 1px solid #ffcaca;
+  background: #fff5f5;
+}
+
+.pass-hero-refund-off {
+  border-color: #ffe9cf;
+  background: #fffaf0;
+}
+
+.pass-hero-refund-t {
+  font-size: 25px;
+  font-weight: 700;
+  color: #e8112d;
+}
+
+.cons-order-refund {
+  font-size: 21px;
+  font-weight: 600;
+  color: #e8112d;
+  border: 1px solid #ffcaca;
+  background: #fff5f5;
+  border-radius: 999px;
+  padding: 5px 16px;
+}
+
+.cons-order-refund-off {
+  color: #c4a680;
+  border-color: #ffe9cf;
+  background: #fffaf0;
+}
+
+/* ---------- 顶部筛选：只看待玩 ---------- */
+.pass-filter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.pass-filter-btn {
+  padding: 10px 24px;
+  border-radius: 999px;
+  border: 1px solid #ffd98e;
+  background: #fffdf8;
+  font-size: 24px;
+  color: #a8845a;
+}
+
+.pass-filter-on {
+  background: linear-gradient(135deg, #ffb14d, #ff8c42);
+  border-color: #ff9a3d;
+  color: #fff;
+}
+
+.pass-filter-hint {
+  font-size: 23px;
+  color: #b08c62;
+}
+
+/* ---------- 已玩 / 已退 折叠头 ---------- */
+.pass-group-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.pass-group-head .pass-group-title {
+  margin-bottom: 0;
+}
+
+.pass-group-caret {
+  font-size: 23px;
+  color: #d9a24a;
+}
+
+/* ---------- 顶部双 tab：我的券 / 消费明细 ---------- */
+.passes-tabs {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.passes-tab {
+  flex: 1;
+  text-align: center;
+  padding: 16px 0;
+  border-radius: 999px;
+  background: rgba(255, 253, 248, 0.9);
+  border: 1px solid #ffe9cf;
+  font-size: 27px;
+  color: #a8845a;
+}
+
+.passes-tab-on {
+  background: linear-gradient(135deg, #ffb14d, #ff8c42);
+  border-color: #ff9a3d;
+  color: #fff;
+  font-weight: 700;
+}
+
+/* ---------- 消费明细（原「我的」页消费记录弹窗，整单券包进度） ---------- */
+.cons-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.cons-tab {
+  flex: 1;
+  text-align: center;
+  padding: 12px 0;
+  border-radius: 999px;
+  background: rgba(255, 253, 248, 0.9);
+  border: 1px solid #ffe9cf;
+  font-size: 24px;
+  color: #a8845a;
+}
+
+.cons-tab-on {
+  background: #fff5e0;
+  border-color: #ffc46b;
+  color: #7a4a12;
+  font-weight: 700;
+}
+
+.cons-list {
+  max-height: calc(100vh - 360px);
+}
+
+.cons-order {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  background: rgba(255, 253, 248, 0.94);
+  border: 1px solid #ffe9cf;
+  border-radius: 24px;
+  padding: 24px 26px;
+  margin-bottom: 18px;
+}
+
+.cons-order-main {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  flex: 1;
+}
+
+.cons-order-name {
+  font-size: 28px;
+  font-weight: 700;
+  color: #b25b00;
+}
+
+.cons-order-sub {
+  font-size: 22px;
+  color: #8a7a5a;
+}
+
+.cons-order-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.cons-order-coins {
+  font-size: 26px;
+  font-weight: 700;
+  color: #b25b00;
+}
+
+/* 沿用原弹窗的颜色口径：未核销=橙黄 / 已核销=绿 / 已退款=红 */
+.cons-order-status {
+  font-size: 21px;
+  color: #c47f00;
+}
+
+.cons-order-status-used {
+  color: #2f9e4f;
+}
+
+.cons-order-status-refunded {
+  color: #e8112d;
+}
+
+.cons-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 70px 30px;
+  border: 1px dashed #ffd9a8;
+  border-radius: 24px;
+}
+
+.cons-empty-emoji {
+  font-size: 70px;
+}
+
+.cons-empty-text {
+  font-size: 24px;
+  color: #7a6a4a;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.cons-foot-tip {
+  display: block;
+  text-align: center;
+  font-size: 20px;
+  color: #c4a680;
+  padding: 10px 0 20px;
+}

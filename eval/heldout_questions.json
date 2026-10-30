@@ -1,0 +1,39 @@
+{
+  "meta": {
+    "name": "heldout-v1",
+    "desc": "独立问法评测集。全部问题由人工改写，与知识库 chunk 里的「**常见问法**」原文零重合，用于消除训练/测试污染。",
+    "source_filter": "duck_1786354148",
+    "note": "expected_chunk_ids 对应该 source 文件内的 chunk_id；expected_chunk_ids 为空表示该问题知识库未收录，正确行为是走兜底话术而非编造。",
+    "created": "2026-09-21"
+  },
+  "cases": [
+    { "q": "儿童坐一次旋转木马要玩多久", "expected_chunk_ids": [1] },
+    { "q": "木马大人能不能陪着坐", "expected_chunk_ids": [1] },
+    { "q": "秋千玩一次是几分钟", "expected_chunk_ids": [2] },
+    { "q": "过山车一次跑多少圈", "expected_chunk_ids": [3] },
+    { "q": "蹦床一次可以玩多久", "expected_chunk_ids": [4] },
+    { "q": "浴室大作战的单次时长是多少", "expected_chunk_ids": [5] },
+    { "q": "大炮乐园一场发多少发子弹", "expected_chunk_ids": [6] },
+    { "q": "一个孩子可以免费带一个家长进场吗", "expected_chunk_ids": [7] },
+    { "q": "爸爸妈妈都陪着进去，第二个家长要买票吗", "expected_chunk_ids": [8] },
+    { "q": "没有小孩，大人自己去玩按什么价", "expected_chunk_ids": [9] },
+    { "q": "一块钱能兑几个游戏币", "expected_chunk_ids": [10] },
+    { "q": "充值一千元能到手多少币", "expected_chunk_ids": [11] },
+    { "q": "办卡充值送币一共有几个档位", "expected_chunk_ids": [11] },
+    { "q": "只充十块二十块可以吗", "expected_chunk_ids": [12] },
+    { "q": "充进去的币有没有使用期限", "expected_chunk_ids": [13] },
+    { "q": "卡里剩的币不玩了能退回现金吗", "expected_chunk_ids": [14] },
+    { "q": "进场以后家长要全程看着小孩吗", "expected_chunk_ids": [15] },
+    { "q": "设施还在转的时候能钻进去吗", "expected_chunk_ids": [16] },
+    { "q": "能自己带吃的喝的吗", "expected_chunk_ids": [17] },
+    { "q": "玩到一半机器停了，能让我免费再来一次吗", "expected_chunk_ids": [18] },
+    { "q": "把设备弄坏了要全额赔吗", "expected_chunk_ids": [19] },
+    { "q": "周末晚上几点收摊", "expected_chunk_ids": [20] },
+    { "q": "刮台风下暴雨还营业吗", "expected_chunk_ids": [21] },
+    { "q": "你们一共有几个项目，分别什么价", "expected_chunk_ids": [22] },
+    { "q": "为什么你们家玩一次这么贵", "expected_chunk_ids": [23] },
+    { "q": "这个储值卡能去别的店刷吗", "expected_chunk_ids": [24] },
+    { "q": "园区有停车场吗", "expected_chunk_ids": [] },
+    { "q": "可以给园区里的小鸭子喂食吗", "expected_chunk_ids": [] }
+  ]
+}

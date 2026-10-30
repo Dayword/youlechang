@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>鸭先知 · 系统分层架构</title>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&family=Noto+Serif:ital@0;1&family=Noto+Sans+SC:wght@400;500;600&family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --color-paper:   #faf6ee;   /* 米白 */
+      --color-paper-2: #f1ebdd;
+      --color-ink:     #2b2a24;   /* 暖墨 */
+      --color-muted:   #5c5748;   /* 暖灰褐 */
+      --color-soft:    #8a8371;
+      --color-accent:  #d98e00;   /* 鸭黄·琥珀 */
+      --font-sans:     'Geist', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      --font-serif:    'Instrument Serif', 'Noto Serif SC', 'Noto Serif', serif;
+      --font-mono:     'Geist Mono', ui-monospace, monospace;
+    }
+    body {
+      font-family: var(--font-sans);
+      background: var(--color-paper);
+      color: var(--color-ink);
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      padding: 3rem 2rem;
+    }
+    .frame { max-width: 1200px; width: 100%; }
+    .eyebrow {
+      font-family: var(--font-mono); font-size: 0.66rem; font-weight: 500;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--color-muted); margin-bottom: 0.5rem;
+    }
+    h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(1.5rem, 2.4vw + 0.75rem, 2rem);
+      font-weight: 400; letter-spacing: -0.02em; line-height: 1.15;
+      color: var(--color-ink); margin-bottom: 1.5rem;
+    }
+    svg { width: 100%; min-width: 900px; display: block; }
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <p class="eyebrow">Layer Stack · 技术方案书 2.1</p>
+    <h1>鸭先知 · 系统分层架构（自下而上五层）</h1>
+
+    <svg viewBox="0 0 960 560" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="fig01-arch-title fig01-arch-desc">
+      <title id="fig01-arch-title">鸭先知系统分层架构</title>
+      <desc id="fig01-arch-desc">五层架构：自下而上为数据层、模型层、智能体编排层、网关层、接入层，智能体编排层为焦点层。</desc>
+
+      <rect width="100%" height="100%" fill="#faf6ee"/>
+
+      <!-- 左侧方向指示 -->
+      <line x1="88" y1="452" x2="88" y2="156" stroke="rgba(43,42,36,0.25)" stroke-width="1"/>
+      <polygon points="88,148 84,158 92,158" fill="#5c5748"/>
+      <text x="76" y="304" fill="#5c5748" font-size="12" font-weight="500"
+            font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif"
+            text-anchor="middle" transform="rotate(-90 76 304)">调用方向</text>
+
+      <!-- 层带：自上而下 L5 → L1；y=140 起，每层 72px，无缝叠放 -->
+      <!-- L5 接入层 -->
+      <rect x="140" y="140" width="760" height="72" fill="#faf6ee" stroke="rgba(43,42,36,0.12)" stroke-width="0.8"/>
+      <text x="156" y="181" fill="#8a8371" font-size="9" font-family="'Geist Mono',monospace" letter-spacing="0.12em">L5</text>
+      <text x="204" y="183" fill="#2b2a24" font-size="15" font-weight="600"
+            font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">接入层</text>
+      <text x="884" y="182" fill="#5c5748" font-size="12" font-weight="400" text-anchor="end"
+            font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">游客小程序 · 商家 PC 后台 · 员工手机端</text>
+
+      <!-- L4 网关层 -->
+      <rect x="140" y="212" width="760" height="72" fill="#f1ebdd" stroke="rgba(43,42,36,0.12)" stroke-width="0.8"/>
+      <text x="156" y="253" fill="#8a8371" font-size="9" font-family="'Geist Mono',monospace" letter-spacing="0.12em">L4</text>
+      <text x="204" y="255" fill="#2b2a24" font-size="15" font-weight="600"
+            font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">网关层</text>
+      <text x="884" y="254" fill="#5c5748" font-size="12" text-anchor="end"
+            font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">FastAPI · 105 路由 / 13 模块 · SSE 流式</text>
+
+      <!-- L3 智能体编排层（焦点层） -->
+      <rect x="140" y="284" width="760" height="72" fill="rgba(217,142,0,0.10)" stroke="#d98e00" stroke-width="1.2"/>
+      <text x="156" y="325" fill="#d98e00" font-size="9" font-weight="600" font-family="'Geist Mono',monospace" letter-spacing="0.12em">L3</text>
+      <text x="204" y="327" fill="#2b2a24" font-size="15" font-weight="600"
+            font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">智能体编排层</text>
+      <text x="884" y="326" fill="#5c5748" font-size="12" text-anchor="end"
+            font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">8 个 Agent · 工具按需挂载 · 防幻觉生成</text>
+
+      <!-- L2 模型层 -->
+      <rect x="140" y="356" width="760" height="72" fill="#faf6ee" stroke="rgba(43,42,36,0.12)" stroke-width="0.8"/>
+      <text x="156" y="397" fill="#8a8371" font-size="9" font-family="'Geist Mono',monospace" letter-spacing="0.12em">L2</text>
+      <text x="204" y="399" fill="#2b2a24" font-size="15" font-weight="600"
+            font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">模型层</text>
+      <text x="884" y="398" fill="#5c5748" font-size="12" text-anchor="end"
+            font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">DeepSeek(LLM) · BGE-M3(向量) · bge-reranker(精排)</text>
+
+      <!-- L1 数据层 -->
+      <rect x="140" y="428" width="760" height="72" fill="#f1ebdd" stroke="rgba(43,42,36,0.12)" stroke-width="0.8"/>
+      <text x="156" y="469" fill="#8a8371" font-size="9" font-family="'Geist Mono',monospace" letter-spacing="0.12em">L1</text>
+      <text x="204" y="471" fill="#2b2a24" font-size="15" font-weight="600"
+            font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">数据层</text>
+      <text x="884" y="470" fill="#5c5748" font-size="12" text-anchor="end"
+            font-family="'Geist','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">Milvus · Redis · MySQL/SQLite · BM25 索引</text>
+
+      <!-- 外轮廓 -->
+      <rect x="140" y="140" width="760" height="360" fill="none" stroke="#2b2a24" stroke-width="1"/>
+
+      <!-- 底注 -->
+      <line x1="140" y1="524" x2="900" y2="524" stroke="rgba(43,42,36,0.10)" stroke-width="0.8"/>
+      <text x="140" y="544" fill="#8a8371" font-size="9" font-family="'Geist Mono',monospace" letter-spacing="0.14em">鸭先知 · 游乐场智能问答与运营系统 · Docker Compose 一键部署</text>
+    </svg>
+  </div>
+</body>
+</html>
