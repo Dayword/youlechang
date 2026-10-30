@@ -9,6 +9,34 @@
 
 ---
 
+## 📸 界面预览
+
+**游客端（微信小程序）**
+
+<table>
+  <tr>
+    <td align="center" width="25%"><img src="docs/screenshots/user-01-home.png" width="190"><br><sub>首页 · AI 问答 / 办卡 / 游乐消费入口</sub></td>
+    <td align="center" width="25%"><img src="docs/screenshots/user-02-ai-travel-plan.png" width="190"><br><sub>AI 出行攻略 · 按孩子画像与余币算价</sub></td>
+    <td align="center" width="25%"><img src="docs/screenshots/user-03-consume-order.png" width="190"><br><sub>游乐消费 · 选项目自动算总价</sub></td>
+    <td align="center" width="25%"><img src="docs/screenshots/user-04-my-passes.png" width="190"><br><sub>我的游园券 · 一单一券包</sub></td>
+  </tr>
+</table>
+
+**商家端（PC 运营后台）**
+
+<table>
+  <tr>
+    <td align="center" width="50%"><img src="docs/screenshots/admin-01-dashboard.png" width="430"><br><sub>运营仪表盘 · 意图分布与知识库盲区</sub></td>
+    <td align="center" width="50%"><img src="docs/screenshots/admin-02-assistant.png" width="430"><br><sub>经营小助手 · 一句话查营收（工具调用 + 图表）</sub></td>
+  </tr>
+  <tr>
+    <td align="center" width="50%"><img src="docs/screenshots/admin-03-analytics.png" width="430"><br><sub>问答分析 · 满意度与意图占比</sub></td>
+    <td align="center" width="50%"><img src="docs/screenshots/admin-04-knowledge-base.png" width="430"><br><sub>知识库管理 · 文档切片与向量入库</sub></td>
+  </tr>
+</table>
+
+---
+
 ## ✨ 核心能力
 
 | 能力 | 说明 |
