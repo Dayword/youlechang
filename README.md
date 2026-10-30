@@ -16,9 +16,9 @@
 <table>
   <tr>
     <td align="center" width="25%"><img src="docs/screenshots/user-01-home.png" width="190"><br><sub>首页 · AI 问答 / 办卡 / 游乐消费入口</sub></td>
-    <td align="center" width="25%"><img src="docs/screenshots/user-02-ai-travel-plan.png" width="190"><br><sub>AI 出行攻略 · 按孩子画像与余币算价</sub></td>
-    <td align="center" width="25%"><img src="docs/screenshots/user-03-consume-order.png" width="190"><br><sub>游乐消费 · 选项目自动算总价</sub></td>
-    <td align="center" width="25%"><img src="docs/screenshots/user-04-my-passes.png" width="190"><br><sub>我的游园券 · 一单一券包</sub></td>
+    <td align="center" width="25%"><img src="docs/screenshots/user-02-ai-chat.png" width="190"><br><sub>AI 问答 · 按孩子画像与余币算出行攻略</sub></td>
+    <td align="center" width="25%"><img src="docs/screenshots/user-03-profile.png" width="190"><br><sub>我的 · 余币 / 游园码 / 游玩次数排行</sub></td>
+    <td align="center" width="25%"><img src="docs/screenshots/user-04-card.png" width="190"><br><sub>办卡充值 · 会员码与充值档位</sub></td>
   </tr>
 </table>
 
@@ -27,11 +27,15 @@
 <table>
   <tr>
     <td align="center" width="50%"><img src="docs/screenshots/admin-01-dashboard.png" width="430"><br><sub>运营仪表盘 · 意图分布与知识库盲区</sub></td>
-    <td align="center" width="50%"><img src="docs/screenshots/admin-02-assistant.png" width="430"><br><sub>经营小助手 · 一句话查营收（工具调用 + 图表）</sub></td>
+    <td align="center" width="50%"><img src="docs/screenshots/admin-02-knowledge-base.png" width="430"><br><sub>知识库管理 · 文档切片与向量入库</sub></td>
   </tr>
   <tr>
     <td align="center" width="50%"><img src="docs/screenshots/admin-03-analytics.png" width="430"><br><sub>问答分析 · 满意度与意图占比</sub></td>
-    <td align="center" width="50%"><img src="docs/screenshots/admin-04-knowledge-base.png" width="430"><br><sub>知识库管理 · 文档切片与向量入库</sub></td>
+    <td align="center" width="50%"><img src="docs/screenshots/admin-04-cards.png" width="430"><br><sub>卡产品管理 · 充值档位与上下架</sub></td>
+  </tr>
+  <tr>
+    <td align="center" width="50%"><img src="docs/screenshots/admin-05-lost-found.png" width="430"><br><sub>失物招领 · 照片 AI 识别后入库</sub></td>
+    <td align="center" width="50%"><img src="docs/screenshots/admin-06-assistant.png" width="430"><br><sub>经营小助手 · 一句话查营收（工具调用 + 图表）</sub></td>
   </tr>
 </table>
 
